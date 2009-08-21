@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsfonts,amsmath,amsthm}
+
+\title{Confidence Intervals}
+\author{Miguel Manese}
+\date{Aug. 21, 2009}
+
+\newcommand{\obs}{y_{1}, y_{2}, \ldots, y_{n}}
+\newtheorem{ex}{Example}
+\begin{document}
+\maketitle
+
+\noindent Given IID observations $\obs$ taken
+from $Y \sim \mathbb{D}(\theta)$, where $\mathbb{D}$ is some 
+probability distribution and $\theta$ is its parameter.
+
+\begin{enumerate}
+\item Let $g_{1}(\obs, \alpha)$, $g_{2}(\obs, \alpha)$ be statistics
+computed from the $n$ observations and the \textit{probability coverage}
+$\alpha$.
+
+\item The statistics $g_{1}$ and $g_{2}$ are constructed 
+such that $P(g_{1} \leq \theta \leq g_{2}) = \alpha$ 
+
+\item Then the interval $[g_{1}, g_{2}]$ is the $\alpha$-confidence interval
+for the parameter $\theta$. This means that $\alpha \times 100\%$ of the 
+time $\theta$ lies in the interval $[g_{1}, g_{2}]$.
+\end{enumerate}
+
+\begin{ex}
+Construct a double-sided $(1 - \alpha) \times 100\%$ confindence interval for $\obs$ taken from $N(\mu, 1)$.
+\end{ex}
+
+\begin{proof}[Answer]
+Let $t = \sqrt{n} \ (\bar{y} - \mu)$. Since $t \sim t_{n-1}$ then 
+
+\[ P(t_{n-1, \frac{\alpha}{2}} \leq t \leq t_{n-1, 1 - \frac{\alpha}{2}}) = 
+    \alpha \]
+
+\noindent where $t_{n-1, \alpha}$ is the $\alpha$-th quantile of the $t$ 
+distribution with $n-1$ degrees of freedom. Substituting 
+$t = \sqrt{n} \ (\bar{y} - \mu)$
+
+\[P(t_{n-1, \frac{\alpha}{2}} \leq \sqrt{n} \ (\bar{y} - \mu) \leq
+     t_{n-1, 1 - \frac{\alpha}{2}}) = \alpha \]
+
+\noindent rearranging
+\[P\left(\frac{\bar{y} - t_{n-1, \frac{\alpha}{2}}}{\sqrt{n}} \leq \mu \leq
+     \frac{\bar{y} - t_{n-1, 1 - \frac{\alpha}{2}}}{\sqrt{n}} \right) = \alpha \]
+
+\noindent and so we have
+\begin{eqnarray}
+g_{1}(\obs,\alpha) & = & \frac{\bar{y} - t_{n-1, \frac{\alpha}{2}}}{\sqrt{n}}
+ \nonumber \\ 
+g_{2}(\obs,\alpha) & = & \frac{\bar{y} - t_{n-1, 1 - \frac{\alpha}{2}}}{\sqrt{n}} \nonumber
+\end{eqnarray}
+\end{proof}
+\end{document}

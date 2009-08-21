@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsfonts}
+
+\title{(G)ARCH Notes}
+\author{Miguel Manese}
+\date{Sept. 06, 2007}
+
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+\item ARCH(1): $u_{t} = \epsilon_{t}h_{t}^{\frac{1}{2}}$
+    \begin{itemize}
+    \item $\epsilon_{t} \sim \mathrm{WN}(0, \sigma^{2})$, 
+    $h_{t} = \alpha_{0} + \alpha_{1} u_{t-1}^{2}$ ($\alpha_{0} > 0$,
+    $0 < \alpha_{0} < \alpha{1}$) 
+    \item with $h_{t} = f(u_{t-1})$ independent of $\epsilon_{t}$
+    \begin{eqnarray}
+\E[u_{t}|u_{t-1}] & = & \E\epsilon_{t} \cdot \E h_{t}^{\frac{1}{2}} \nonumber \\
+                 & = & 0 \cdot h_{t}^{\frac{1}{2}} \nonumber \\
+                 & = & 0 \nonumber
+    \end{eqnarray}
+    \item $\Var[u_{t}|u_{t-1}] = \E[u_{t}^2|u_{t-1}] = 
+    \Var(\epsilon_{t}) \cdot h_{t} = \sigma^{2} h_{t}$
+    \end{itemize}
+\item ARCH(p) : $u_{t} = \epsilon_{t} h_{t}$
+    \begin{itemize}
+    \item $\mathcal{F}_{t-1} = $ $\sigma$-algebra of $\{u_{t' < t}\}$
+    \item $h_{t} = \alpha_{0} + \alpha_{1} u_{t-1}^{2} + \alpha{2} u_{t-2}^{2}
+      + \ldots + \alpha_{p} u_{t-p}^{2}$
+    \item $\E[u_{t}|\mathcal{F}_{t-1}] = 0$, 
+      $\Var[u_{t}|\mathcal{F}_{t-1}] = h_{t}\sigma^{2}$
+    \end{itemize}
+\item GARCH(p, q): $u_{t} = \epsilon_{t} h_{t}$
+    \begin{itemize}
+    \item $h_{t} = \alpha_{0} + \alpha_{1} u_{t-1}^2 + \alpha_{2} u_{t-2}^{2}
+      + \ldots + \alpha_{p} u_{t-p}^{2} + \beta_{1} h_{t-1} + \ldots 
+      + \beta_{q} h_{t-q}$
+    \item ARIMA-like stationarity, causality constraints (?)
+    \end{itemize}
+\item ARCH-M(p) - ARCH in the mean: $y_{t} = \mu_{t} + u_{t}$
+    \begin{itemize}
+    \item $\mu_{t} = \beta + \delta \sqrt{h_{t}}$, 
+        $h_{t} = \alpha_{0} + \alpha_{1}u_{t-1}^{2} + \ldots +
+        \alpha_{p} u_{t-p}^{2}$
+    \item conditional mean depends on conditional stddev
+    \end{itemize}
+\item I-GARCH
+    \begin{itemize}
+    \item e.g. a GARCH(1,1) is I-GARCH if we constrain $\alpha_{1}$,
+    $\beta_{1}$ s.t. \mbox{$\alpha_{1} + \beta_{1} = 1$}
+    \end{itemize}
+\end{enumerate}
+
+\end{document}
