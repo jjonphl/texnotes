@@ -1,0 +1,101 @@
+\documentclass{article}
+\usepackage{amsfonts,amsmath,amsthm,url}
+
+\title{ARMA Intercept Term}
+\author{Miguel Manese}
+\date{Aug. 21, 2009}
+
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newcommand{\Xt}{\{X_{t}\}}
+\newcommand{\Yt}{\{Y_{t}\}}
+\newcommand{\E}{\mathrm{E}}
+\begin{document}
+\maketitle
+
+\noindent Let $\Xt$ be a (weakly) stationary and invertible time series.
+
+\begin{definition}\normalfont
+$\Xt$ is MA(p) if $X_{t} = \sum_{j=0}^{p} \theta_{j} Z_{t-j}$, where 
+$\theta_{0} = 1$ and $Z_{t} \sim \mathrm{WN}(0, \sigma^2)$.
+\end{definition}
+
+\noindent 
+If $\Xt$ is MA(p), $\E X_{t} = \sum_{j=0}^{p} \theta_{j} \E Z_{t-j} = 0$. 
+Let $\Yt = \Xt + \alpha$, then $\E Y_{t} = \alpha$ and $\alpha$ is also the
+\textit{intercept} of the series.
+
+
+\begin{definition}\normalfont
+$\Xt$ is AR(p) if $\sum_{j=0}^{p} \phi_{j} X_{t-j} = Z_{t}$, where 
+$\phi_{0} = 1$ and $Z_{t} \sim \mathrm{WN}(0, \sigma^2)$.
+\end{definition}
+
+\noindent
+If $\Yt$ is AR(p), then it can be expressed as an MA($\infty$) process
+$X_{t} = \sum_{j=0}^{\infty} \psi_{j} Z_{t-j}$. In the
+latter representation it is easy to see that $\E X_{t} = 0$. An intercept term
+does not easily fit an intercept term, as shown below.
+
+\begin{example}\label{ex:ar_alpha}\normalfont
+Let $\Xt$ be a time series with $X_{t} - 0.2 X_{t-1} = 1 + Z_{t}$. This is 
+(like) an \textit{AR(1) with intercept $\alpha = 1$}. To compute $\E X_{t}$
+
+\begin{eqnarray}
+X_{t} & = & 1 + 0.2 X_{t-1} + Z_{t} \nonumber\\
+         & = & 1 + 0.2 [1 + 0.2 X_{t-2} + Z_{t-1}] + Z_{t} \nonumber\\
+         & = & 1 + 0.2 + 0.04 X_{t-2} + 0.2 Z_{t-1} + Z_{t} \nonumber\\
+         & = & 1.2 + 0.04 [1 + 0.2 X_{t-3} + Z_{t-2}] + 0.2 Z_{t-1} + Z_{t} \nonumber\\
+         & = & 1.24 + 0.008 X_{t-3} + 0.04 Z_{t-2} + 0.2 Z_{t-1} + Z_{t} \nonumber\\
+         & = & \ldots \nonumber
+\end{eqnarray}
+
+\noindent And so 
+
+\[
+\E X_{t}  =  \alpha (1 + \sum_{j=1}^{\infty} \phi^{j} ) 
+   =  \alpha \sum_{j=0}^{\infty} \phi^{j} 
+   =  \frac{\alpha}{1 - \phi} \nonumber 
+   =  \frac{1}{1 - 0.2} = 1.25
+\]
+\end{example}
+
+\noindent \qedsymbol\\
+
+\noindent We see that $\E X_{t} \neq \alpha$, as in the case for MA(p)
+with added intercept. Conversely the following example shows how to get the 
+\textit{intercept} given $\E X_{t}$ of Example~\ref{ex:ar_alpha}
+
+\begin{example}\label{ex:ar_mean}\normalfont
+Let $\Xt$ be an AR(1) process with $\E X_{t} = 1.25$. Then we have
+$(X_{t} - 1.25) - 0.2(X_{t-1} - 1.25) = Z_{t}$. Rearranging terms to get
+the intercept $\alpha$
+
+\begin{eqnarray}
+X_{t} & = & 1.25 - 0.2(X_{t-1} - 1.25) + Z_{t} \nonumber\\
+  & = & 1.25 - 0.2 \cdot 1.25 - 0.2 X_{t-1} + Z_{t} \nonumber\\
+  & = & 1 - 0.2 X_{t-1} + Z_{t} \nonumber
+\end{eqnarray}
+
+\noindent which shows that the intercept $\alpha=1$. \qedsymbol 
+\end{example}
+
+\noindent Relationship between the intercept term and the mean of an AR(p)
+process is more complicated for $p > 1$. (This should be derivable, though.)
+
+\begin{definition}\normalfont
+$\Xt$ is ARMA(p, q) if $\sum_{j=0}^{p} \phi_{j} X_{t-j} = 
+\sum_{j=0}^{q} \theta_{j} Z_{t-j}$, where 
+$\phi_{0} = \theta_{0} = 1$ and $Z_{t} \sim \mathrm{WN}(0, \sigma^2)$.
+\end{definition}
+
+\noindent Intercept \textit{issues} for ARMA(p, q) is similar to those of
+AR(p).
+
+\begin{thebibliography}{9}
+\bibitem{bRProb} Shumway and Stoffer,
+\emph{Some R Time Series Issues},  
+\url{http://www.stat.pitt.edu/stoffer/tsa2/Rissues.htm},
+retrieved August 31, 2009.
+\end{thebibliography}
+\end{document}
