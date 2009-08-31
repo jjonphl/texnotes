@@ -1,0 +1,89 @@
+\documentclass{article}
+\usepackage{amsfonts}
+
+\title{Priestly Notes}
+\author{Miguel Manese}
+\date{August 31, 2009}
+
+\newcommand{\tpi}{$2\pi$}
+\newcommand{\intpi}{\int_{-\pi}^{\pi}}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+Notes for the book Spectral Analysis and Time Series
+\end{abstract}
+
+\begin{section}{Fourier Series: $2\pi$-periodic Functions (4.2)}
+\begin{enumerate}
+\item $\cos t$, $\sin t$, $\cos 2t$, ... - $2\pi$ periodic 
+\item $f(t) = \sum_{n=0}^{\infty} (a_{n}\cos(nt) + b_{n}\sin(nt)$ - 
+  $2\pi$-periodic because all components are $2\pi$-periodic
+    \begin{enumerate}
+    \item can we build $2\pi$-periodic functions from linear combination of
+    other functions? (NO)
+    \item used by Fourier to solve differential equation in heat conduction,
+    Bernoulli in vibrating strings
+    \item abstract harmonic analysis in functional analysis, spectral
+    resolution of unitary operators
+    \end{enumerate}
+\item \label{fseries} Canonical form: $X(t) = \frac{1}{2}a_{0} + 
+  \sum_{n=1}^{\infty} (a_{n} \cos(nt) + b_{n} \sin(nt))$
+    \begin{enumerate}
+    \item $n = 0$ $\rightarrow$ bias, $n = 1$ $\to$ fundamental (freq),
+    $n = 2$ $\to$ 1st harmonic, etc.
+    \end{enumerate}
+\item \label{ortho1} $\cos nt$, $\sin mt$ are orthogonal in $[-\pi, \pi]$
+    \begin{enumerate}
+    \item if $n \neq m$
+    \begin{eqnarray}
+    \intpi \cos(nt)\cos(mt) dt & = & \frac{1}{2} \intpi [\cos((n+m)t) + 
+                 \cos((n-m)t)] dt \nonumber \\
+     & = & \left[ \frac{1}{2(n+m)} \sin((n+m)t) +
+           \frac{1}{2(n-m)} \sin((n-m)t) \right]_{-\pi}^{\pi} \nonumber \\
+    & = & 0 \nonumber
+    \end{eqnarray}
+
+    \begin{eqnarray}
+    \intpi \cos(nt)\sin(mt) dt & = & \frac{1}{2} \intpi [\sin((n+m)t) +
+         \sin((n-m)t)] dt \nonumber \\
+     & = & \left[ \frac{-1}{2(n+m)} \cos((n+m)t) + 
+                  \frac{-1}{2(n-m)} \cos((n-m)t) \right]_{-\pi}^{\pi} \nonumber\\
+     & = & \frac{-1}{2(n+m)} (1 - 1) + \frac{-1}{2(n-m)} (1 - 1) \nonumber\\
+     & = & 0 \nonumber
+     \end{eqnarray}
+
+    \item if $n = m$
+    \begin{eqnarray}
+    \intpi \cos^{2}(nt) dt & = & \frac{1}{2} \intpi [\cos(2nt) + 2] dt 
+                                                    \nonumber \\
+    & = & 0 + \left. \frac{t}{2} \right|_{-\pi}^{\pi} \nonumber\\
+    & = & \pi \nonumber
+    \end{eqnarray}
+
+    \begin{eqnarray}
+    \intpi \cos(nt)\sin(nt) dt & = & \frac{1}{2} \intpi \sin(2nt) dt\nonumber\\
+     & = & \frac{-1}{4n} \left. \cos(2nt) \right|_{-\pi}^{\pi} \nonumber\\
+     & = & \frac{-1}{4n} (1 - 1) \nonumber\\
+     & = & 0 \nonumber
+    \end{eqnarray}
+
+    \end{enumerate}
+\item Using \#\ref{ortho1}, we can derive a formula for coefficients in 
+  \#\ref{fseries}
+  \begin{eqnarray}
+  \intpi X(t) \cos(mt) dt & = & \frac{1}{2} a_{0} \intpi \cos(mt) dt +
+      \sum_{n=1}^{\infty} [a_{n} \intpi \cos(nt)\cos(mt) dt + 
+                           b_{n} \intpi \sin(nt)\cos(mt) dt ] \nonumber\\
+   & = & a_{m} \intpi \cos^{2}(mt) dt \nonumber\\
+   & = & a_{m} \pi \nonumber
+  \end{eqnarray}
+  \noindent which gives us the ff formulas
+  \begin{eqnarray}
+  a_{m} & = & \frac{1}{\pi} \intpi X(t) \cos(mt) dt \nonumber\\
+  b_{m} & = & \frac{1}{\pi} \intpi X(t) \sin(mt) dt \nonumber
+  \end{eqnarray}
+\end{enumerate}
+\end{section}
+\end{document}
