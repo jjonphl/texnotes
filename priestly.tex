@@ -1,5 +1,5 @@
 \documentclass{article}
-\usepackage{amsfonts}
+\usepackage{amsfonts,amsmath}
 
 \title{Priestly Notes}
 \author{Miguel Manese}
@@ -70,20 +70,97 @@ Notes for the book Spectral Analysis and Time Series
     \end{eqnarray}
 
     \end{enumerate}
-\item Using \#\ref{ortho1}, we can derive a formula for coefficients in 
-  \#\ref{fseries}
-  \begin{eqnarray}
-  \intpi X(t) \cos(mt) dt & = & \frac{1}{2} a_{0} \intpi \cos(mt) dt +
+\item \label{formula1} Using \#\ref{ortho1}, we can derive a formula for 
+  coefficients in \#\ref{fseries}
+  \begin{align}
+  \intpi X(t) \cos(mt) dt & = \frac{1}{2} a_{0} \intpi \cos(mt) dt +
       \sum_{n=1}^{\infty} [a_{n} \intpi \cos(nt)\cos(mt) dt + 
                            b_{n} \intpi \sin(nt)\cos(mt) dt ] \nonumber\\
-   & = & a_{m} \intpi \cos^{2}(mt) dt \nonumber\\
-   & = & a_{m} \pi \nonumber
-  \end{eqnarray}
+   & = a_{m} \intpi \cos^{2}(mt) dt \nonumber\\
+   & = a_{m} \pi \nonumber
+  \end{align}
   \noindent which gives us the ff formulas
-  \begin{eqnarray}
-  a_{m} & = & \frac{1}{\pi} \intpi X(t) \cos(mt) dt \nonumber\\
-  b_{m} & = & \frac{1}{\pi} \intpi X(t) \sin(mt) dt \nonumber
-  \end{eqnarray}
+  \begin{align}
+  a_{0} & =  \frac{1}{\pi} \intpi X(t) dt  \notag\\
+  a_{m} & =  \frac{1}{\pi} \intpi X(t) \cos(mt) dt && \text{m = 1, 2, ...} \notag\\
+  b_{m} & =  \frac{1}{\pi} \intpi X(t) \sin(mt) dt && \text{m = 1, 2, ...} \notag
+  \end{align}
+
+\item \label{justify} Justifcations for \#\ref{formula1} - difficult questions 
+of infinite sums
+  \begin{enumerate}
+  \item Is term by term integration ok? (i.e. $\int \cos(nt)\cos(mt) dt$?) -
+  can any $2\pi$-periodic function really be represented by \#\ref{fseries}?
+  \item Conditions: $\intpi |X(t)| dt < \infty$ (absolutely integrable,
+  i.e. $X \in \mathcal{L}^{1}(-\pi,\pi)$, which implies the following
+
+  \[ 
+    |a_{m}| \leq \intpi |X(t)| |\cos(mt)| dt \leq \intpi |X(t)| dt \leq \infty
+  \]
+
+  \item Question set 1:
+    \begin{enumerate}
+    \item Can any $2\pi$-periodic function be represented as 
+    $f(t) = \frac{1}{2}a_{0} + \sum_{n=1}^{\infty}(a_{n} \cos(nt) + 
+                                                   b_{n} \sin(nt))$
+    \item Term by term integration ok in the expansion of $f(t)$ above? This
+    \emph{problem} can be fixed by assuming RHS uniformly converges.
+    \end{enumerate}
+
+  \item Question set 2, given $\{a_{n}\}$, $\{b_{n}\}$ defined in 
+  \#\ref{formula1}
+    \begin{enumerate}
+    \item Are they finite? Yes if $\intpi |X(t)| dt < \infty$.
+    \item Does it converge?
+    \item Does it converge to $X(t)$ ?
+    \end{enumerate}
+  \end{enumerate}  
+
+\item X(t) is of \emph{bounded variation} in $[a, b]$ if for a fixed $n$,
+all subdivisions of $[a, b]$ with $n$ segments 
+$(a = t_{0} < t_{1} < ... < t_{n} = b)$, 
+$\sum_{v=0}^{n-1} |X(t_{v+1}) - X(t_{v})| < B(n)$. I.e. bounded by some
+$B$ dependent only on $n$, not the specific subdivision
+  \begin{enumerate}
+  \item $X(t)$ is of a bounded variation if it has finite number of maxima,
+  minima and discontinuities.
+  \item E.g. $\tan(\theta)$ is of bounded variation.
+  \end{enumerate}
+
+\item Jordan's test: if $X(t)$ is of a bounded variation in the neighborhood
+of $t = t_{0}$ (i.e. some interval around $t_{0}$) then its fourier seris 
+converges to $\frac{1}{2}(X(t_{0}-0) + X_(t_{0}+0))$
+
+\item In \#\ref{justify} we only assumed that $X \in \mathcal{L}^{1}(-\pi,\pi)$.
+Here we assume $X \in \mathcal{L}^{2}(-\pi,\pi)$. Then if 
+$X_{m}(t) = \sum_{n=0}^{m}(a_{n}\cos(nt) + b_{n}\sin(nt))$, 
+$X_{m}(t) \rightarrow X(t)$ in the \emph{mean square} sense 
+($\intpi [X(t) - X_{m}(t)]^{2} dt \rightarrow 0$ as $m \rightarrow \infty$)
 \end{enumerate}
+\end{section}
+
+\begin{section}{Fourier Series of General Periodicity (4.3)}
+\begin{enumerate}
+\item Let $X(t)$ be $2T$-periodic, $Y(t) \equiv X(\frac{T}{\pi} t)$, then
+  \begin{align}
+  Y(t+2\pi) & = X\left(\frac{(t + 2\pi)T}{\pi}\right) \notag\\
+   & = X\left(\frac{tT}{\pi} + \frac{2 \pi T}{\pi}\right) \notag\\
+   & = X\left(\frac{tT}{\pi} + 2T\right) \notag\\
+   & = X\left(\frac{tT}{\pi}\right) = Y(t) \notag
+  \end{align} 
+  \noindent i.e. Y(t) is $2\pi$ periodic
+
+\item Using previous results for $2\pi$ periodic functions, 
+$Y(s) = \frac{1}{2}a_{0} + \sum_{n=1}^{\infty}(\ldots)$. 
+Let $s = \frac{\pi t}{T}$, then 
+$X(t) = Y(\frac{\pi}{T} t) = \frac{1}{2}a_{0} + \sum_{n=1}^{\infty}
+ (a_{n}cos(\frac{\pi t}{T} n) + b_{n}sin(\frac{\pi t}{T} n))$
+
+\item $\cos(\frac{\pi t}{T}n)$ and $\sin(\frac{\pi t}{T}n)$ are also orthognal
+\end{enumerate}
+\end{section}
+
+\begin{section}{Spectral Analysis of Periodic Functions (4.4)}
+
 \end{section}
 \end{document}

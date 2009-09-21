@@ -2,3 +2,5 @@
 *.dvi
 *.log
 *.swp
+*.ps
+*.pdf
