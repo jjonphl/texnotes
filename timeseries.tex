@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsfonts, amsmath}
+
+\title{Time Series Notes}
+\author{Miguel Manese}
+\date{Sept. 21, 2009}
+
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\begin{document}
+\maketitle
+
+\begin{section}{Definitions}
+
+\begin{subsection}{Partial Autocorrelation Function (PACF)}
+The PACF is a function $\alpha : \mathcal{Z} \rightarrow \Re$ where
+
+\begin{itemize}
+\item $\alpha(0) = 1$
+\item $\alpha(h) = \phi_{hh}$, where $\phi_{hh}$ is the correlation between
+$(X_{n+h} - P(X_{n+h} | X_{n+1}, X_{n+2}, \ldots, X_{n+h-1}))$ and
+$(X_{n} - P(X_{n} | X_{n+1}, X_{n+2}, \ldots, X_{n+h-1}))$. 
+\end{itemize} 
+
+\noindent In other words, the PACF accounts for the dependence between 
+$X_{n+h}$ and 
+$X_{n}$ unaccounted by (the linear combination of) $X_{n+1}, X_{n+2}, \ldots,
+X_{n+h-1}$.\\
+
+$\phi_{hh}$ is computed as the last component of the formula
+$\mathbf{\phi_{h}} = \Gamma_{h}^{-1} \mathbf{\gamma_{h}}$. 
+\end{subsection}
+\end{section}
+
+
+\begin{section}{Linear Time Series}
+\end{section}
+\end{document}
+

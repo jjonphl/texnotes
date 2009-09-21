@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage{amsfonts, amsmath}
+
+\title{Stat 232: Inference}
+\author{Miguel Manese}
+\date{Sept. 21, 2009}
+
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Like}{\mathrm{L}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\bo}[1]{\boldsymbol{#1}}
+\newtheorem{definition}{Definition}
+\begin{document}
+\maketitle
+
+\begin{section}{Ch 7: Point estimation}
+\begin{definition}
+A \emph{point estimator} is any function $W(X_{1}, \ldots, X_{n})$ of 
+a sample $X_{1}, \ldots, X_{n}$, i.e. any statistic is a point estimator.
+\end{definition}
+
+\begin{subsection}{Finding Estimators}
+\begin{subsubsection}{Method of moments}
+
+Assuming there are $k$ parameters $\boldsymbol{\theta}$. Then we equate $k$ sample 
+moments to corresponding $k$ theoretical moments, which are usually a 
+function of the parameters.
+
+\[m_{i} = \frac{1}{n} \sum_{i=1}^{n} x_{i}^{k} = \mu'_{k} = \E X^{k} = 
+  \mu'_{k}(\boldsymbol{\theta}) \]
+
+\noindent solve for $\boldsymbol{\theta}$.
+\end{subsubsection}
+
+\begin{subsubsection}{Maximum Likelihood Estimator}
+
+The joint probability of the sample $x_{1}, \ldots, x_{n}$ is
+\[ \Like(\boldsymbol{\theta} | \boldsymbol{x}) = \prod_{i=1}^{n} 
+     f(x_{i}|\boldsymbol{\theta}) \]
+
+\begin{enumerate}
+\item Max of $\Like(\bo{\theta}|\bo{x})$ is equal to max of 
+  $\log \Like(\bo{\theta}|\bo{x})$.
+\item Range of $\bo{\theta}$ should also be the range of optimization.
+\item Invariance property: if $\hat{\bo{\theta}}$ is the MLE of $\bo{\theta}$,
+then $\tau(\hat{\bo{\theta}})$ is the MLE of $\tau(\bo{\theta})$ if 
+$\tau(\cdot)$ is one-to-one.
+\item If $\tau(\cdot)$ is not one-to-one, define the \emph{induced likelihood}
+$\Like^{*}(\cdot|\cdot)$ as 
+
+\[ \Like^{*}(\eta|\bo{x}) = \sup_{\bo{\theta} : \tau(\bo{\theta}) = \eta}
+   \Like(\bo{\theta}|\bo{x}) \]
+
+\noindent then the value $\hat{\eta} = \tau(\bo{\theta})$ that maximizes 
+$\Like^{*}$ is the MLE of $\eta$. With this definition of the likelihood
+function, invariance will hold ($\hat{\eta} = \tau(\hat{\bo{\theta}})$).
+
+\item Maximality check for continuous function: 1st derivative is 0, 2nd
+derivative is less than 0.
+\end{enumerate}
+\end{subsubsection}
+
+\begin{subsubsection}{Bayes Estimator}
+\begin{enumerate}
+\item Prior: $\theta \sim \pi(\theta)$
+\item Posterior: 
+
+\[ \pi(\theta | \bo{x}) = \frac{f(\bo{x}|\theta) \pi(\theta)}{m(\bo{x})} \]
+
+\noindent where
+
+\[ m(\bo{x}) = \int f(\bo{x}|\theta) \pi(\theta) d\theta = 
+               \int f(\bo{x}, \theta) d\theta \]
+
+\item Conjugate family: Let $\Pi$ be the class of priors, $\mathcal{F}$ the
+class of population PDF. If posterior $\in \Pi \ \forall \  f \in \mathcal{F}$ 
+then $\Pi$ is the conjugate family of $\mathcal{F}$.
+  \begin{enumerate}
+  \item Updating the prior only updates the parameters!
+  \item Examples: beta-binomial, normal-normal.
+  \end{enumerate}
+\end{enumerate}
+\end{subsubsection}
+
+\begin{subsubsection}{Expectation Maximization Problem}
+\end{subsubsection}
+\end{subsection}
+
+\begin{subsection}{Evaluating Estimators}
+\begin{subsubsection}{Mean-Squared Error (MSE)}
+
+\end{subsubsection}
+\end{subsection}
+\end{section}
+
+\begin{section}{Ch8: Hypothesis Testing}
+\begin{definition}
+A hypoethesis is a statement about a parameter. Usually 2 competing hypothesis:
+$H_{0}$ (null) and $H_{1}$ (alternative). If $\Theta$ is the parameter
+space, $\Theta_{0} \subset \Theta$ is the subspace where $H_{0}$ is true
+and $\Theta_{0}^{c}$ is the subspace where $H_{1}$ is true.
+\end{definition}
+\end{section}
+\end{document}
