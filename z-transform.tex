@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsfonts, amsmath}
+
+\title{Z-Transform}
+\author{Miguel Manese}
+\date{Sept. 21, 2009}
+
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\begin{document}
+\maketitle
+
+\begin{section}{Z-Transform}
+\end{section}
+
+\begin{section}{Polynomial Fraction}
+\end{section}
+
+\begin{section}{Pole Locations}
+Assume the series $\{x_{n}\} = \{\ldots, x_{-1}, x_{0}, x_{1}, \ldots\}$ 
+is the transfer function of the \emph{system} $X$, and its z-transform is 
+$X(z) = \sum_{n=-\infty}^{\infty} x_{n} z^{-n}$.
+\begin{enumerate}
+\item If the series has a finite \emph{support}, then it does not have poles
+besides at $z = 0$.
+\item The system $X$ is called \emph{causal} if 
+$X(z) = \sum_{n=0}^{\infty} x_{n} z^{-n}$ (i.e. zero for negative integers). 
+This is because of $X$ is the transfer function, then convolving it with
+an input will only involve past values of the input and so is causal.
+\item If the series has infinite support, then it can have poles. Common
+sense in the finite case does not necessarily extend to the infinite case,
+even for linear stuffs. It is is possible that the series is a 
+ratio of two polynomials. Then the zeros of the denominator polynomial
+are the poles of the series.
+\item Implications of the pole location for causal, infinite series
+  \begin{enumerate}
+  \item Pole at $|z| < 1$ - this is fine, because $|1/z| > 1$ and the sum
+  explodes and is unstable
+  \item Pole at $|z| = 1$ - this means $\sum_{n=0}^{\infty} |x_{n}| = \infty$,
+  and is \emph{semi-stable}
+  \item Pole at $|z| > 1$ - this means unstable, because $|1/z| < 1$ and
+  the series explodes faster than $|1/z|$ vanishes (i.e., it is large enough
+  to overcome the influence of a very small $|1/z^{N}|$ for large $N$).
+  \end{enumerate}
+\noindent Therefore, for stable systems we want the poles to be $|z| < 1$. 
+If the convention used is $X(z) = \sum_{n=0}^{\infty} x_{n} z^{n}$, then
+we want the poles at $|z| > 1$.\\
+For ARMA $\phi(B)X_{n} = \theta(B)W_{n}$, we want the zeros of $\phi(B)$ to
+be \emph{outside of the radius-1 circle} (because we use the second convention)
+so that the poles, when \emph{transposed} to the other side, are also
+outside the circle.
+\end{enumerate}
+\end{section}
+\end{document}
