@@ -9,6 +9,9 @@
 \newcommand{\Like}{\mathrm{L}}
 \newcommand{\Var}{\mathrm{Var}}
 \newcommand{\bo}[1]{\boldsymbol{#1}}
+\newcommand{\deriv}[1]{\frac{d}{d#1}}
+\newcommand{\pderiv}[1]{\frac{\partial}{\partial#1}}
+\newcommand{\ppderiv}[1]{\frac{\partial^{2}}{\partial^{2}#1}}
 \newtheorem{definition}{Definition}
 \begin{document}
 \maketitle
@@ -88,7 +91,87 @@ then $\Pi$ is the conjugate family of $\mathcal{F}$.
 
 \begin{subsection}{Evaluating Estimators}
 \begin{subsubsection}{Mean-Squared Error (MSE)}
+\begin{definition}{Mean-Squared Error}
+If $W(\bo{x})$ estimates $\theta$, then its mean-squared error is 
 
+\[E_{\theta}(W - \theta)^2 = \Var_{\theta} W + (E_{\theta}W - \theta)^2\]
+\end{definition}
+
+The MSE is a reasonable criterion for location parameters (e.g. mean), but
+not for scale parameters (e.g. variance). The MSE is \emph{forgiving} of
+underestimation for the latter.
+
+\begin{enumerate}
+\item Often, MSE's of two estimators will cross each other: each better than
+the other for a portion of the sample space.
+\item Equivariant estimators.
+\item Best unbiased estimators.
+  \begin{itemize}
+  \item Techniques here can be used to compare two MSE with the same bias.
+  \item The best unbiased estimator of $\tau(\theta)$ is $W^{*}$ iff for
+    every other $W$ that estimates $\tau(\theta)$, $\Var_{\theta} W^{*} \leq
+    \Var_{\theta} W$.
+  \item Cramer-Rao inequality (Cramer-Rao Lowr Bound): if 
+  \[ \frac{d}{d\theta} \E_{\theta} W(\bo{x}) = \int_{\bo{X}} 
+     \frac{\partial}{\partial\theta} [W(\bo{x}) f(\bo{x}|\theta)] d\bo{x} \]
+  \noindent and $\Var_{\theta} W(\bo{x}) < \infty$ then
+  \[ \Var_{\theta}(W(\bo{x})) \geq \frac{\left(\frac{d}{d\theta} 
+                                               \E_{\theta} W(\bo{x})\right)^2}
+      {E_{\theta}\left(\frac{\partial}{\partial\theta} \log f(\bo{x}|\theta)
+                \right)^2} \]
+  \noindent Also, if $\bo{x}$ is IID then
+  \[ \E_{\theta}\left(\frac{\partial}{\partial\theta} \log f(\bo{x}|\theta)
+               \right)^2 = 
+     n \E_{\theta}\left(\frac{\partial}{\partial\theta} \log f(x_{1}|\theta)
+               \right)^2 \]
+  \noindent where $x_{1}$ is the 1st element of vector $\bo{x}$. The last
+  equation is also known as \emph{Fisher information}, or 
+  \emph{Information number}.
+  \item Computational helper for Cramer-Rao lower bound: If $f(x|\theta)$
+  satisfies
+  \[ \deriv{\theta} \E_{\theta}\left(\pderiv{\theta} \log f(x|\theta) 
+                               \right)^2 =
+     \int \pderiv{\theta} \left[\left(\pderiv{\theta} \log f(x|\theta)
+               \right) f(x|\theta) \right] dx \]
+  \noindent then
+  \[ \E_{\theta}\left(\pderiv{\theta} \log f(x|\theta) \right)^2 =
+     - \E_{\theta} \left(\ppderiv{\theta} \log f(x|\theta) \right) \] 
+
+  \item Always check for integration-differentiation interchangeability
+  assumption when using Cramer-Rao. Densities in exponential class usually
+  satisfies this.
+
+  \item Cramer-Rao lower bound is attainable when
+
+  \[ a(\theta) [W(\bo{x} - \tau(\theta)] = \pderiv{\theta} \log 
+      \Like(\theta | \bo{x}) \]
+  
+  \noindent where $\Like(\theta | \bo{x}) = \prod_{i=1}^{n} f(x_{i}|\theta)$,
+  $W(\bo{x})$ is the unbiased estimator of $\tau(\theta)$ and $a(\theta)$
+  is some \emph{constant} dependent on $\theta$.
+  \end{itemize}
+
+\item Sufficiency and unbiasedness
+  \begin{itemize}
+  \item Key theorems: $\E X = \E[\E(X|Y)]$, $\Var X = \Var[\E(X|Y))] + 
+  \E[\Var(X|Y)]$
+
+  \item Theorem: Let $W(\bo{x})$ be an unbiased estimator of $\tau(\theta)$, 
+    then $W$ is unique
+
+  \item Theorem: $W$ is the best unbiased estimator iff $W$ is uncorrelated
+    with all unbiased estimator of 0 (i.e. random noise).
+
+  \item Theorem: Let $T$ be a complete and sufficient statistic for $\theta$,
+    and $\phi(t)$ be any estimator based only on $T$. Then $\phi(t)$ is the
+    unique best unbiased estimator of $\E \phi(t)$.
+
+  \item Therefore, to find best unbiased estimator, first find any estimator
+    $h(\bo{X})$ then condition with a complete sufficient statistic $T$. 
+    That is, $\phi(t) = \E[h(\bo{X})|T]$  is the best unbiased estimator for
+    whatever it is estimating.
+  \end{itemize}
+\end{enumerate}
 \end{subsubsection}
 \end{subsection}
 \end{section}
@@ -100,5 +183,136 @@ $H_{0}$ (null) and $H_{1}$ (alternative). If $\Theta$ is the parameter
 space, $\Theta_{0} \subset \Theta$ is the subspace where $H_{0}$ is true
 and $\Theta_{0}^{c}$ is the subspace where $H_{1}$ is true.
 \end{definition}
+
+\begin{subsection}{Finding Tests}
+\begin{subsubsection}{Likelihood Ratio Tests}
+Given the definitions above, the likelihood ratio is defined as
+
+\[ \lambda(\bar{x}) = \frac{\sup_{\Theta_{0}} \Like(\theta|\bo{x})}
+                           {\sup_{\Theta} \Like(\theta|\bo{x})} \]
+
+\noindent where $\lambda(\bo{x})$ ranges $[0,1]$. The \emph{rejection region}
+(i.e. reject null hypothesis) is defined as 
+$\{\bo{x} : \lambda(\bo{x}) \leq c, c \in [0, 1]\}$.
+
+If $T(\bo{x})$ is a sufficient statistic for $\theta$ and $\lambda^{*}(t)$
+is its LRT then $\lambda^{*}(T(\bo{x})) = \lambda(\bo{x}) \forall \bo{x}$.
+\end{subsubsection}
+
+\begin{subsubsection}{Bayesian Tests}
+Posterior is used to calculate that $H_{0}$ (or $H_{1}$) is true
+
+\begin{enumerate}
+\item Accept $H_{0}$ if $P(\theta \in \Theta_{0} | \bo{x}) >
+  P(\theta \in \Theta_{0}^{c})$. Rejection region is 
+  $\{\bar{x} | P(\theta \in \Theta_{0}^{c} | \bo{x}) > \frac{1}{2}\}$.
+\item Example: let $\alpha=0.05$, then reject if
+  $P(\theta \in \Theta_{0}^{c} | \bo{x}) > 0.95$.
+\end{enumerate}
+\end{subsubsection}
+
+\begin{subsubsection}{Union-Intersection Test}
+
+\[H_{0} : \theta \in \bigcap_{\gamma} \Theta_{0_{\gamma}} , \quad 
+R = \bigcup_{\gamma} \{ \bo{x} | T_{\gamma}(\bo{x}) \in R_{\gamma} \} \]
+
+\noindent where $T_{\gamma}$ is a sufficient statistic and $R_{\gamma}$ is
+the rejection region associated with index $\gamma$. Simplified form is
+
+\[ \bigcup_{\gamma} \{ \bo{x} | T_{\gamma}(\bo{x}) > c \} =
+  \{ \bo{x} | \sup_{\gamma} T_{\gamma}(\bo{x}) > c \} \]
+\end{subsubsection}
+
+\begin{subsubsection}{Intersection-Union Test}
+
+\[H_{0} : \theta \in \bigcup_{\gamma} \Theta_{0_{\gamma}} , \quad 
+R = \bigcap_{\gamma} \{ \bo{x} | T_{\gamma}(\bo{x}) \in R_{\gamma} \} \]
+
+\noindent where $T_{\gamma}$ is a sufficient statistic and $R_{\gamma}$ is
+the rejection region associated with index $\gamma$. Simplified form is
+
+\[ \bigcap_{\gamma} \{ \bo{x} | T_{\gamma}(\bo{x}) > c \} =
+  \{ \bo{x} | \inf_{\gamma} T_{\gamma}(\bo{x}) > c \} \]
+\end{subsubsection}
+\end{subsection}
+
+\begin{subsection}{Evaluating Tests}
+\begin{enumerate}
+\item Types of error
+  \begin{enumerate}
+  \item Type I - reject when true
+  \item Type II - accept when false
+  \end{enumerate}
+
+  \[ P_{\theta}\{\bo{x} \in R\} = 
+    \begin{cases}
+      P(\mathrm{Type I}), & \mathrm{if} \theta \in \Theta_{0}\\
+      1 - P(\mathrm{Type II}), & \mathrm{if} \theta \in \Theta_{0}^{c}\\
+    \end{cases} \]
+
+\item Power function is defined as $\beta(\theta) = P_{\theta}(\bo{x} \in R)$.
+Ideally
+
+\[ \beta(\theta) = 
+  \begin{cases}
+  0, & \theta \in \Theta_{0}\\
+  1, & \theta \in \Theta_{0}^{c}\\
+  \end{cases} \]
+
+Typically $\beta{\theta}$ depends on sample size $n$.
+
+\item For $0 \leq \alpha \leq 1$
+  \begin{enumerate}
+  \item size $\alpha$-test: $\sup_{\theta \in \Theta_{0}} \beta{\theta} = 
+     \alpha$
+  \item level $\alpha$-test: $\sup_{\theta \in \Theta_{0}^{c}}
+    \beta{\theta} \leq \alpha$
+  \end{enumerate}
+
+\item $\beta(\theta)$ is unbiased if $\inf_{\theta \in \Theta_{0}^{c}} 
+\beta(\theta) \geq \sup_{\theta \in \Theta_{0}} \beta(\theta)$.
+
+\item Let $\mathcal{C}$ be the class of all level $\alpha$ tests for 
+testing $\theta \in \Theta_{0}$. A test is called the \emph{uniformly most 
+powerful class $\mathcal{C}$ test} if its power function $\beta(\theta)$ is 
+greater than or equal to the power function $\beta'(\theta)$ of any other 
+test in $\mathcal{C}$ (i.e. $\beta(\theta) \geq \beta'(\theta)$) when 
+$\theta \in \Theta_{0}^{c}$.
+
+\item Neyman-Pearson Lemma: in simple test $H_{0}: \theta = \theta_{0}$ vs
+$H_{1}: \theta = \theta_{1}$, if a test with rejection region $R$ satisfies
+
+  \begin{align}
+  x & \in R && \text{if} f(x|\theta_{1}) > k f(x|\theta_{0}) \notag\\
+  x & \in R^{C} && \text {if} f(x|\theta_{1}) < k f(x|\theta_{0}) \notag\\
+  \alpha & = P_{\theta_{0}}(x \in R) \notag
+  \end{align}
+
+\noindent with $k \geq 0$, then 
+  \begin{enumerate}
+  \item tests satisfying above is level $\alpha$, UMP test
+  \item if for all test satisfying the assumption above and k > 0 then every
+    UMP level $\alpha$ test is a size $\alpha$ test and every other UMP
+    level $\alpha$ test satisfies things above (?)
+  \end{enumerate}
+
+\item If $T(x)$ is a sufficient statistic, $g(t|\theta_{i})$ is its PDF/PMF
+then tests based on $T$ are UMP level $\alpha$ test if
+  \begin{align}
+  t & \in T(R) && \text{if} g(t|\theta_{1}) > k g(t|\theta{0}) \notag\\
+  t & \in T(R^{C}) && \text if g(t|\theta_{0}) < k g(t|\theta{0}) \notag\\
+  \alpha & = P_{\theta_{0}}(t \in T(R)) \notag
+  \end{align}
+
+\item Monotone likelihood ratio (MLR) - a family of PDFs $f(t|\theta)$ has
+MLR property if $\forall \theta_{1} > \theta_{2}$ then 
+$f(t|\theta_{1}) / f(t|\theta_{2})$ is monotone (increasing or decreasing)
+function of $\{t | f(t|\theta_{1}) > 0 or f(t|\theta_{0}) > 0 \}$.
+
+\item Karlin-Rubin: if the family of PDFs of a sufficient statistic $T$
+has MRL, then for any $t_{0}$ the test that rejects $H_{0}$ if $T > t_{0}$
+is a UMP level $\alpha$ test ($\alpha = P_{\theta_{0}}(T > t_{0})$).
+\end{enumerate}
+\end{subsection}
 \end{section}
 \end{document}

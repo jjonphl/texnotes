@@ -1,5 +1,5 @@
 \documentclass{article}
-\usepackage{amsfonts, amsmath}
+\usepackage{amsfonts, amsmath, amsthm}
 
 \title{Z-Transform}
 \author{Miguel Manese}
@@ -7,13 +7,139 @@
 
 \newcommand{\E}{\mathrm{E}}
 \newcommand{\Var}{\mathrm{Var}}
+\newcommand{\field}[1]{\mathbb{#1}} % requires amsfonts
 \begin{document}
 \maketitle
 
 \begin{section}{Z-Transform}
+\begin{subsection}{Definitions}
+\begin{enumerate}
+\item Given a sequence $\{x_{n}\}$, its Z-transform $X(z) = Z\{x_{n}\}$ is 
+given by 
+  \[ X(z) = \sum_{n} x_{n} z^{-n}. \]
+\item Region of convergence (ROC) of $X(z)$ is $\{z \in \field{Z} \mid |X(z)| < 
+\infty \}$.
+  \begin{enumerate}
+  \item if there is a $z^{n}$ term $(n > 0)$ then $+\infty \not\in \text{ROC}$.
+  \item if there is a $z^{-n}$ term $(n > 0)$ then $+0 \not\in \text{ROC}$.
+  \end{enumerate}
+\item Example $x_{n} = x(n) = (\frac{1}{2})^{n} u(n) = \{1, \frac{1}{2},
+ \frac{1}{4}, \frac{1}{8}, \ldots \}$
+  \begin{align}
+  X(z) &= 1 + \frac{1}{2}z^{-1} + \frac{1}{4}z^{-2} + \ldots +
+              (\frac{1}{2})^{n} z^{-n} + \ldots \notag\\
+       &= \sum_{n=0}^{\infty} (\frac{1}{2})^{n} z^{-n} 
+        = \sum_{n=0}^{\infty} (\frac{1}{2} z^{-1})^{n}\notag 
+  \end{align}
+  which converges to $\frac{1}{1 - \frac{1}{2}z^{-1}}$ if 
+  $|\frac{1}{2} z^{-1}| < 1$ or equivalently $|z| > \frac{1}{2}$ and so
+  \begin{align}
+  X(z) &= \frac{1}{1 - \frac{1}{2}z^{-1}} && \text{ROC: } |z| > \frac{1}{2}
+   \notag
+  \end{align}
+\item ROC of infinite duration signals
+  \begin{align}
+  |X(z)| &= |\sum_{n} x(n)r^{-n} e^{-i\theta n}| \notag\\
+         &\leq \sum_{n} |x(n) r^{-n} e^{-i\theta n}| 
+           = \sum_{n} |x(n) r^{n}|\notag\\
+         &= \sum_{n= -\infty}^{-1} |x(n) r^{-n}| +
+            \sum_{n=0}^{\infty} |\frac{x(n)}{r^{n}}| \notag\\
+         &= \sum_{n=1}^{\infty} |x(-n) r^{n}| +
+            \sum_{n=0}^{\infty} |\frac{x(n)}{r^{n}}|\notag
+  \end{align}
+  \begin{enumerate}
+  \item For 1st term to converge, $\exists r_{1}$ s.t. $|x(-n) r_{1}^{n}|
+   \to 0$ as $n \to \infty$ and so all $r < r_{1}$ will also converge
+   (i.e. inside the circle of radius $r_{1}$).
+  \item For 2nd term to converge, $\left|\frac{x(n)}{r_{2}^{n}}\right| \to 0$
+   as $n \to \infty$ and so are for all $r > r_{2}$ (i.e. outside the circle
+   of radius $r_{2}$).
+  \item Together, ROC is $r_{1} > r > r_{2}$.
+  \end{enumerate}
+\item $X(z)$ and ROC uniquely identifies $x_{n}$. If $x_{n}$ is finite,
+then $X(z)$ alone is enough (ROC everywhere except possibly 0 and $\infty$).
+\item Inversion using complex integration over a contour.
+\end{enumerate}
+\end{subsection}
+
+\begin{subsection}{Properties}
+\begin{enumerate}
+\item Linearity : $Z\{\alpha x_{1}(n) + \beta x_{2}(n)\} = 
+  \alpha X_{1}(z) + \beta X_{2}(z)$, ROC: intersection of ROC of
+  $X_{1}(z)$ and $X_{2}(z)$.
+\item Time-shifting: $Z\{x(n-k)\} = z^{-k} X(z)$, ROC: same except at $z=0$.
+\item Scaling: $Z\{a^{n} x(n)\} = X(\frac{z}{a})$, ROC: 
+  $|a|r_{1} < |z| < |a|r_{2}$.
+  \begin{proof}
+  \begin{align}
+  Z\{a^{n}x(n)\} &= \sum_{n} a^{n}z^{-n} = \sum{n} x(n) (a^{-1}z)^{-1}\notag\\
+    &= X(\frac{z}{a}) \notag
+  \end{align}
+  \noindent If ROC of $X(z)$ is $r_{1} < |z| < r_{2}$, then ROC of 
+  $X(\frac{z}{a})$ is $r_{1} < |za^{-1}| < r_{2}$ or equivalently 
+  $|a|r_{1} < |z| < |a|r_{2}$.
+  \end{proof}
+\item Time-reversal: $Z\{x(-n)\} = X(z^{-1})$, ROC: $\frac{1}{r_{2}} < |z| <
+  \frac{1}{r_{1}}$.
+\item Differentiation in Z-domain: $Z\{n x(n)\} = -z 
+  \frac{\text{d} X(z)}{\text{d}z}$
+  \begin{proof}
+  \begin{align}
+  -z \frac{\text{d}X(z)}{\text{d}z} &= -z \sum_{n} x(n) (-n)z^{-n-1} 
+    = (-z) (-z)^{-1} \sum_{n} (n x(n)) z^{-n} \notag\\
+    &= Z\{n x(n)\} \notag
+  \end{align}
+  
+%  -z \sum_{n} 
+%        (\sum_{k} x_{1}(k) x_{2}(n-k)) z^{-n} \notag\\
+%     &= -z \sum_{k} x_{1}(k) (\sum_{n} x_{2}(n-k) z^{-n}) \notag\\
+%     &= -z X_{2}(z)
+  \end{proof}
+\item Convolution: $Z\{x_{1}(n) * x_{2}(n)\} = X_{1}(z)X_{2}(z)$
+  \begin{proof}
+  \begin{align}
+  Z\{x_{1}(n) * x_{2}(n)\} &= \sum_{n} \left(\sum_{k} x_{1}(k) x_{2}(n-k)\right)
+     z^{-n} \notag\\
+     &= \sum_{k} x_{1}(k) \left(\sum_{n} x_{2}(n-k) z^{-n}\right)\notag\\
+     &= X_{2}(z) \sum_{k} x_{1}(k) z^{-k} && \text{(Time Shift property)}
+    \notag\\
+     &= X_{2}(z) X_{1}(z) = X_{1}(z) X_{2}(z)\notag
+  \end{align}
+  \end{proof}
+\item Correlation of 2 sequences: if $r_{x_{1},x_{2}}(l) = 
+  \sum_{n} x_{1}(n) x_{2}(n-l)$ then $R_{x_{1},x_{2}}(z) = 
+  Z\{r_{x_{1},x_{2}}\} = X_{1}(z) X_{2}(z^{-1})$ using time-reversal and
+  convolution properties.
+\item Multiplication in time domain:
+  \[ Z\{x_{1}(n) x_{2}(n) \} = \frac{1}{2 \pi i} \oint X_{1}(v) 
+      X_{2}(\frac{z}{v}) v^{-1} dv \]
+  \noindent ROC: $r_{1l} r_{2l} < |z| < r_{1u} r_{2u}$, where $r_{1l} < |z| <
+  r_{1u}$ is the ROC of $x_{1}(n)$ and similarly for $x_{2}(n)$.
+\item Parseval's relation - 
+  \[ Z\{\sum_{n} x_{1}(n) x_{2}^{*}(n) \} = \frac{1}{2 \pi i} \oint X_{1}(v) 
+      X_{2}^{*}(\frac{1}{v^{*}}) v^{-1} dv \]
+
+\end{enumerate}
+\end{subsection}
 \end{section}
 
-\begin{section}{Polynomial Fraction}
+\begin{section}{Rational Z-Transforms}
+\begin{enumerate}
+\item Form
+  \begin{align}
+  X(z) &= \frac{N(z)}{D(z)} = \frac{\sum_{k=0}^{M} b_k z^{-k} }
+                                   {\sum_{k=0}^{N} a_k z^{-k} }
+        = \frac{b_{0}z^{-M}}{a_{0} z^{-N}}
+          \frac{\sum_{k=0}^M \frac{b_{k}}{b_{0}} z^{M-k}}
+               {\sum_{k=0}^N \frac{a_{k}}{a_{0}} z^{N-k}} \notag\\
+       &= G z^{N-M} \frac{\prod_{k=1}^M (z - z_{k})}
+                         {\prod_{k=1}^N (z - p_{k})}\notag
+  \end{align}
+  \noindent where $z_{k}$ are the \emph{zeros} and $p_k$ are the \emph{poles}.
+\item The number of zeros and poles, including those at 0 and $\infty$, are
+  always equal. 
+\item ROC should not contain poles.
+\end{enumerate}
 \end{section}
 
 \begin{section}{Pole Locations}

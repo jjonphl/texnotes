@@ -1,0 +1,119 @@
+\documentclass{article}
+\usepackage{amsfonts, amsmath}
+
+\title{Stat 233: Linear Models}
+\author{Miguel Manese}
+\date{October 16, 2009}
+
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\TX}{T(\mathbf{X})}
+\newcommand{\Tx}{T(\mathbf{x})}
+\newcommand{\btheta}{\mathbf{\theta}}
+%\newcommand{Hnull}{H_{0}}
+%\newcommand{Halt}{H_{1}}
+\newtheorem{definition}{Definition}
+\begin{document}
+\maketitle
+
+\begin{section}{Basic Statistics}
+\begin{subsection}{Objectives}
+\begin{enumerate}
+\item $\mathbf{x} \in \chi$ (sample space)
+\item $\mathbf{\theta} \in \Omega$ (parameter space)
+\item $\mathbf{X} \sim Z$ with PDF $f(\mathbf{x};\mathbf{\theta})$ (model)
+\item We know the form of $f(\bx;\btheta)$, given $\bx$ find $\btheta$
+  that generated $\bx$.
+\end{enumerate}
+\end{subsection}
+
+\begin{subsection}{Sufficiency and Completeness}
+\begin{enumerate}
+\item $T(\bX)$ is a statistic if it does not depend on $\btheta$.
+\item $T(\bX)$ is a sufficient statistic iff $\E[\bX|T(\bX)]$ does not
+  depend on $\btheta$ (i.e. $\E[\bX|T(\bX)]$ is a function of $T(\bX)$ only).
+\item Factorization theorem: Assume $\bX$ has PDF $f(\bx;\btheta)$. 
+  $T(\bX)$ is a sufficient statistic iff $f(\bx;\btheta) = 
+  h(\bx) g(\Tx;\btheta)$.
+\item A statistic $\TX$ is complete (has a complete family of distribution)
+  if $\E_{\theta}h(T) = 0$ implies $P(h(T) = 0) = 1$ ($h(T) = 0$ a.s.).
+\item A complete sufficient statistic $T(\bX)$ is a sufficient statistic
+  with a complete family of distribution (\emph{coarsest}/smallest
+  sufficient statistic)
+\item Exponential criterion of complete sufficiency
+
+\[ f(\bx; \btheta) = c(\btheta) h(\bx) e^{Q'(\bx) T(\bx)} \]
+
+\noindent where $Q(\bx)$ is a matrix, must contain an \emph{interior point}
+\item If $T(\bX)$ is a complete sufficient statistic, $S(\mathbb{t})$ an
+  invertible function of $T$ then $S$ is also complete and sufficient.
+\end{enumerate}
+\end{subsection}
+
+\begin{subsection}{Estimation and Confidence Intervals}
+\begin{enumerate}
+\item \emph{Lehmann-Scheffe} --- let $S(\bX)$ be a complete, sufficient
+  statistic, $T(S)$ be an unbiased estimator for $\tau(\btheta)$, then
+  $T$ is the minimum variance unbiased estimator (MUVE) for $\tau(\btheta)$.
+\item $T(\bX)$ is MLE if $f(\bx; T(\bx)) = \sup_{\btheta \in \Omega}
+  f(\bx; \btheta)$.
+\item If $\hat{\btheta}$ is MLE of $\btheta$, then $\tau(\hat{\btheta})$ is
+  the MLE of $\tau(\btheta)$.
+\item $[a(\bX), b(\bX)]$ is a $1 - \alpha$ confidence interval for 
+  $\tau(\btheta)$ if 
+  \[\mathrm{P}_{\btheta}(\tau(\btheta) \in [a(\bX), b(\bX)]) = 1 - \alpha \]
+\item Assume $\tau(\btheta)$, $\mathbf{d} \in \Re^{m}$. $L : \mathbf{d} \times
+  \btheta \to \Re$ is defined as a loss function representing the error
+  of estimating $\tau(\btheta)$ with $\mathbf{d}$.
+\item The risk function of $T(\bX)$ is defined as $R(T; \btheta) =
+  \E_{\theta} L(T(\bX); \btheta)$.
+\item Comparint statistics in terms of a given $L(\mathbf{d}; \btheta)$
+  (or $R(T)$).
+  \begin{enumerate}
+  \item $T_{1}$ is as good as $T_{2}$ if $R(T_{1}) \leq R(T_{2})$ 
+  $\forall\ \btheta \in \Omega$.
+  \item $T_{1}$ is better than $T_{2}$ if $R(T_{1}) \leq R(T_{2})$
+  $\forall\ \btheta \in \Omega$.
+  \item $T_{1}$ is inadmissible if $\exists T_{2}$ s.t. $T_{2}$ is better
+  than $T_{1}$ (conversely for admissible).
+  \item Let $m(T) = \sup_{\btheta \in \Omega} R(T)$, then $T$ is the minimax 
+  estimator if $m(T) \leq m(T^{*})$ for all other estimators $T^{*}$.
+  \end{enumerate}
+\item Squared error loss function
+  \begin{align}
+  L(d;\btheta) & = (d - \tau(\btheta))^2 && d \in \Re \notag\\
+  R(T;\btheta) & = \E(T(\bX) - \tau(\btheta))^2 \notag\\
+   & = \mathrm{Var}(T(\bX)) + (\E(T(\bX)) - \tau(\btheta))^2 \notag\\
+   & = \mathrm{Variance} + \mathrm{Bias}^2 \notag
+  \end{align}
+\item We usually use a \emph{unitless} loss function $L^{*}$ achieved
+  by multiplying $L(\cdot)$ by a suitable constant $c(\btheta)$, i.e.
+  $L^{*}(\mathbf{d};\btheta) = c(\btheta) L(\mathbf{d};\btheta)$. Best
+  estimator for $L(\cdot)$ is also the best estimator for $L^{*}(\cdot)$.
+\item For estimating $\sigma^2$, the loss function is
+  \[ L^{*}(d; (\mu, \sigma^2)) = \frac{(d - \sigma^2)^2}{\sigma^4} =
+    \left(\frac{d}{\sigma^2} - 1\right)^2 \]
+\item \emph{Rao-Blackwell} $+$ \emph{Lehmann-Scheffe} --- given 
+  $L(\mathbf{d};\btheta)$ convex wrt $\mathbf{d} \forall\ \theta \in \Omega$
+  \begin{enumerate}
+  \item If $S(\bX)$ is a sufficient statistic, $T(\bX)$ estimates 
+    $\tau(\btheta)$, $T^{*}(s) = \E[T(\bX)|s]$, then $T^{*}$ is
+    \emph{as good as} $T$ and if $T$ is unbiased then so is $T^{*}$.
+  \item If $S(\bX)$ is complete and sufficient, $T(S)$ is MVUE for
+    $\tau(\btheta)$ then $T(S)$ is \emph{as good as any unbiased} estimator
+    of $\tau(\btheta)$.
+  \end{enumerate}
+\end{enumerate}
+\end{subsection}
+
+\begin{subsection}{Hypothesis Testing}
+\begin{enumerate}
+\item Given $\omega \subset \Omega$: $H_{0}$: $\btheta \in \omega$,
+  $H_{1}$: $\btheta \in \Omega$ (not $\Omega - \omega$!).
+\item Non-randomized test -- a decision rule $\forall\ \bx$ whether to
+  acceept or reject $H_{0}$ 
+\end{enumerate}
+\end{subsection}
+\end{section}
+\end{document}
