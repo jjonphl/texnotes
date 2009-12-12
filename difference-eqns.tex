@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsfonts, amsmath}
+
+\title{Difference Equations}
+\author{Miguel Manese}
+\date{November 11, 2009}
+
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Like}{\mathrm{L}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\bo}[1]{\boldsymbol{#1}}
+\newtheorem{definition}{Definition}
+\begin{document}
+\maketitle
+
+\begin{section}{Difference Equations with Constant Coefficients}
+\begin{enumerate}
+\item General solution
+  \begin{align}
+  y(n) &= y_h(n) + y_p(n) && \text{homegeneous + particular}\notag
+  \end{align}
+\item Solving for the homegeneous solution
+  \begin{enumerate}
+  \item Set the \emph{forcing function} to 0: $\sum_{k=0}^N a_k y(n-k) = 0$
+  \item Assume solution is $y_h(n) = \lambda^n$, then
+   \[ \sum_{k=0}^N a_k \lambda^{n-k} = \lambda^{n-N} 
+      (\lambda^N + a_1 \lambda^{N-1} + \ldots + a_{N-1} \lambda + a_N) = 0 \]
+  \noindnet which is called the \emph{characteristic polynomial}
+  \item The roots are the solutions
+  \item Assume the solutions $\lambda_1$, $\lambda_2$, $\ldots$, $\lambda_N$
+  are unique, then
+   \[ y_h(n) = C_1\lambda_1^n + C_2\lambda_2^n + ... + C_N\lambda_N^n \]
+  \item Also known as the \emph{zero input response}  (??)
+  \end{enumerate}
+\end{enumerate}
+
+Unsorted stuffs
+\begin{enumerate}
+\item Zero-input - depends on initial condition & system (natural response).
+\item Zero-state - depends on input (initial condition is 0)
+\end{section}
+\end{document}
