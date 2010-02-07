@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsfonts,amsmath,amsthm}
+
+\title{Complexity}
+\author{Miguel Manese}
+\date{February 7, 2010}
+
+\newcommand{\obs}{y_{1}, y_{2}, \ldots, y_{n}}
+\newtheorem{ex}{Example}
+\begin{document}
+\maketitle
+\begin{section}[Big-O Notation]{Big-O Notation 
+    \footnote{Section 0.3, Dasgupta et. al., \emph{Algorithms}.}}
+\begin{enumerate}
+\item Let $f, g : \mathcal{Z}^{+} \rightarrow \Re$
+  \begin{enumerate}
+  \item $f = O(g)$ if $\exists c > 0$ s.t. $f(n) \leq c g(n)$ for $n > N$
+  (\emph{$f$ grows no faster than $g$}, loose analog of $f \leq g$).
+  \item $f = \Omega(g)$ if $g = O(f)$ (loose analog of $f \geq g$).
+  \item $f = \Phi(g)$ if $f = O(g)$ and $g = O(f)$ (loose analog of $f = g$).
+  \end{enumerate}
+\item Example: $f_{1}(n) = n^2$, $f_{2}(n) = 2n + 20$, $f_{3}(n) = n + 1$
+  \begin{enumerate}
+  \item $f_{2} = O(f_{1})$, $f_{1} = \Omega(f_{2})$.
+  \item $f_2 = O(f_{3})$, $f_{3} = O(f_2)$, $f_2 = \Phi(f_3)$.
+  \item $f_3 = O(f_1)$, $f_1 = \Omega(f_3)$.
+  \end{enumerate}
+\item Rules of thumb
+  \begin{enumerate}
+  \item Multiplicative constants can be omitted. E.g. $4n^2 = \Phi(n^2)$.
+  \item $n^a$ dominate $n^b$ if $ a > b$. E.g. $n^5 = \Omega(n^3)$.
+  \item Any exponential dominates any polynomial. E.g. $2^n = \Omega(n^100)$.
+  \item Any polynomial dominates any logarithm. E.g. $n = \Omega(\log n^100)$,
+    $n^2 = \Omega(n \log n)$.
+  \end{enumerate}
+\item Example (exercise 0.2): let $c \in \Re^{+}$, $g(n) = 1 + c + c^2 + 
+ \ldots + c^n$.
+  \begin{enumerate}
+  \item If $c < 1$, $g(n) = \frac{1 - c^n}{1 - c}$, $\lim_{n \to \infty}
+    g(n) = \frac{1}{1 - c} = M$ and so $g = \Phi(1)$.
+  \item If $c = 1$, $g(n) = n$ and so $g = \Phi(n)$.
+  \item If $c > 1$, $c^n$ dominates all other terms of $g$ and so
+    $g = \Phi(c^n)$.
+  \end{enumerate}
+\end{enumerate}
+\end{section}
+
+\end{document}
