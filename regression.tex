@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsfonts}
+
+\title{Linear Regression}
+\author{Miguel Manese}
+\date{September 10, 2010}
+
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\renewcommand{\vec}[1]{\mathbf{\mathit{#1}}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+\begin{document}
+\maketitle
+
+\begin{section}{Normal Equations}
+The linear regression problem has the form
+
+\[ y_{k} = \beta_{0} + \sum_{i=1}^{p} \beta_{i} x_{k,i} + \epsilon_{k} \]
+
+\noindent for $k = 1 \ldots N$, where $N$ is the number of observations. 
+In matrix form, we have the following
+
+\[ \vec{Y} = \mat{X}\vec{\beta} + \vec{\epsilon} \]
+
+\noindent where $\vec{Y} = [y_{1}, \ldots, y_{N}]'$ contains the
+response values, $\mat{B}$
+is a $N \times p$ matrix such that $x_{k,i}$ is the ith regressor of the kth 
+observation, $\vec{\beta} = [\beta_{1}, \ldots, \beta{p}]'$ is the vector
+of parameters, and $\vec{\epsilon} = [\epsilon_{1}, \ldots, \epsilon_{N}]$
+is the vector containing the error terms.\\
+
+The least squares estimate for $\vec{\beta}$, $\hat{\vec{\beta}}$ is the set 
+of parameters that minimizes the sum of squared errors (SSE)
+$ \|\vec{\epsilon} \|^{2} = \sum_{k=1}^{N} \epsilon_{k}^{2} $.
+
+\begin{subsection}{System of Equations}
+\[ \epsilon_{k} = y_{k} - \beta_{0} - \sum_{i=1}^{p} \beta_{i} x_{k,i} \]
+\[ \sum_{i=1}^{N} \epsilon_{k}^{2} = 
+   \sum_{i=1}^{N} (y_{k} - \beta_{0} - \sum_{i=1}^{p} \beta_{i} x_{k,i})^2 \]
+
+\noindent The $\hat{\vec{\beta}}$ that minimizes the SSE is such that
+
+\[ \frac{\partial}{\partial \beta_{j}} \sum_{k=1}^{N} \epsilon_{k}^{2} =
+   \frac{\partial}{\partial \beta_{j}} \sum_{k=1}^{N} (y_{k} - \beta_{0}
+       - \sum_{i=1}^{p} \beta_{i} x_{k,i})^{2} \]
+
+\noindent Evaluating for each $\beta_{j}$ where $j = 1, \ldots, p$ we have
+the following $p$ equations with $p$ unknowns (elements of $\hat{\vec{\beta}}$).
+\end{subsection}
+\begin{subsection}{Matrix Calculus}
+\end{subsection}
+\end{section}
+
+\end{document}
