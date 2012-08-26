@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsfonts, amsmath}
+
+\title{Physics Models Equations}
+\author{Miguel Manese}
+
+\newcommand{\Dt}[1]{\frac{\mathrm{d}#1}{\mathrm{dt}}}
+\newcommand{\PD}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\PDn}[3]{\frac{\partial^{#3}\ #1}{\partial #2^{#3}}}
+
+\begin{document}
+\maketitle
+
+\begin{section}{Univariate}
+
+\begin{subsection}{Damped Harmonic Oscillator}
+
+\[ m \Dt{x}^{2} + b \Dt{x} + k x = f(t) \]
+
+When $f(t) = K$ then it is an autonomous system, i.e. no sustained external
+force is applied. If $f(t)$ is a function of $t$, then it is a 
+non-autonomous system. I.e. there is a varying external force applied
+on the system.
+\end{subsection}
+
+\begin{subsection}{Pendulum}
+
+\[ \Dt{x}^2 + \frac{g}{L} \sin(x) = f(t) \]
+
+\end{subsection}
+\end{section}
+
+\begin{section}{Multivariate}
+
+\begin{subsection}{Heat Equation}
+
+\[ \PD{u}{t} = \PDn{u}{x}{2} \]
+\end{subsection}
+
+\end{section}
+\end{document}
