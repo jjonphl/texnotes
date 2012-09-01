@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsfonts,amsmath,amsthm}
+
+\title{State Space Model}
+\author{Miguel Manese}
+\date{March 2012}
+
+\newcommand{\x}{\mathbf{x}}
+
+\begin{document}
+\maketitle
+
+\begin{section}{Introduction}
+\noindent The state-space / dynamic linear model is defined as
+
+\begin{alignat}{2}
+\mathbf{x}_t &= \Phi~\mathbf{x}_{t-1} + \mathbf{\omega}_t & 
+   \quad\text{(state equation)}\notag\\
+\mathbf{y}_t &= A_t~\mathbf{x}_{t-1} + \mathbf{\nu}_t &
+   \quad\text{(observation equation)}\notag
+\end{alignat}
+
+\noindent where $\mathbf{x}_t, \mathbf{\omega}_t \in \Re^n$, 
+$\mathbf{y}_t, \mathbf{\nu}_t \in \Re^s$, 
+$\mathbf{\omega}_t \sim \mathrm{NID}(\mathbf{0}, Q)$,
+$\mathbf{\nu}_t \sim \mathrm{WN}(\mathbf{0},R)$. Assume $\mathbf{\omega}_t$
+and $\mathbf{\nu}_t$ are uncorrelated.\\
+
+\noindent Full model with input $\mathbf{u}_t$
+
+\begin{alignat}{2}
+\mathbf{x}_t &= \Phi~\mathbf{x}_{t-1} + \Upsilon \mathbf{u}_t + 
+                \mathbf{\omega}_t \notag\\
+\mathbf{y}_t &= A_t~\mathbf{x}_{t-1} + \Gamma \mathbf{u}_t +
+                \mathbf{\nu}_t \notag
+\end{alignat}
+
+
+\end{section}
+
+\begin{section}{Kalman Filter}
+\noindent Given $\mathbf{x}_t | \mathbf{y}_s$
+\begin{itemize}
+\item $s < t$ -- forecasting
+\item $s > t$ -- smoothing
+\item $s = t$ -- filtering
+\end{itemize}
+
+
+\end{section}
+
+\begin{thebibliography}{99}
+\bibitem{shumway}
+Shumway R. and Stoffer D.,
+\emph{Time Series Analysis and Its Applications}. 2nd ed.,
+Springer, 2006.
+\end{thebibliography}
+\end{document}
+

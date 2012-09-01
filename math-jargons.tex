@@ -11,6 +11,7 @@
 \begin{section}{Analysis}
 \begin{subsection}{Sets and Classes}
 \begin{enumerate}
+\item \emph{Denumerable} -- old term for \emph{countable}
 \item \emph{Group}
 \item \emph{Field}
 \item \emph{Algebra}
@@ -39,6 +40,8 @@
   \item \emph{Endomorphism} - $X = Y$, i.e. $f$ is a mapping from $X$ to itself
   \item \emph{Automorphism} - bijective and $X = Y$
   \end{enumerate}
+\item \emph{Homeomorphism} - a continuous deformation with a continuous 
+      inverse. (related to being \emph{topologically equivalent})
 \item \emph{Homogeneous functions} -- if $f(x) = y$ implies $f(kx) = ky$
 \end{enumerate}
 \end{subsection}
@@ -48,16 +51,31 @@
 \begin{section}{Calculus}
 \begin{subsection}{Vector Calculus}
 \begin{enumerate}
-\item Derivatives of scalar-valued function of several variables
+\item Derivatives for $f : \Re^n \to \Re$, where $n > 1$
     \begin{enumerate}
     \item \emph{Gradient} - vector of first derivatives
+    \[ \nabla f(\mathbf{x}) = \left[ \frac{\partial}{\partial x_i} \right] 
+           f(\mathbf{x}) \]
     \item \emph{Hessian} - matrix of "pure" and "mixed" second derivatives
+          \[ \nabla^2 f(\mathbf{x}) = 
+            \left[\frac{\partial^2}{\partial x_{i} \partial x_{j}}\right] 
+            f(\mathbf{x}) \]
     \item \emph{Laplacian} - scalar sum of "unmixed" second derivatives
     \end{enumerate}
-\item Derivatives of vector-valued function of several variables
+\item Derivatives for $\mathbf{f} : \Re^n \to \Re^m$, where $m, n > 1$. Let 
+      $f_1, \ldots, f_m : \Re \to \Re$ be the scalar-valued components of 
+      $\mathbf{f}$, i.e.
+      $\mathbf{f}(\mathbf{x}) = [f_1(\mathbf{x}) f_2(\mathbf{x}) \ldots
+        f_m(\mathbf{x})]'$
     \begin{enumerate}
     \item \emph{Jacobian} - matrix where $i$th row is the gradient of the 
           $i$th function
+          \[ J(f) = \begin{bmatrix}
+                    \nabla f_1(\mathbf{x}) \\
+                    \nabla f_2(\mathbf{x}) \\
+                    \vdots \\
+                    \nabla f_m(\mathbf{x})
+                    \end{bmatrix} \]
     \item \emph{Divergence} - scalar sum where the $i$th term is the 
           derivative of the $i$th function with respect to the $i$th variable
     \end{enumerate}
@@ -65,4 +83,89 @@
 \end{subsection}
 \end{section}
 
+\begin{section}{Complex Analysis}
+\begin{enumerate}
+\item \emph{Cauchy-Riemann equations} -- given $f : \mathbb{C} \to \mathbb{C}$
+      defined by $f(x + iy) = u(x,y) + i v(x,y)$ where $u, v: \Re \to \Re$,
+      let $u_x = \frac{\partial}{\partial x} u$. If $f'(z_0)$ exists then
+      it must satisfy the following equations (Cauchy-Riemann equations)
+      \begin{align}
+      u_x(x_0, y_0) &= v_y(x_0, y_0) \notag \\
+      u_y(x_0, y_0) &= - v_x(x_0, y_0) \notag
+      \end{align}
+\item \emph{Analytic} -- $f : \mathbb{C} \to \mathbb{C}$ is analytic on a
+      point $z_0$ or an open set $S \subset \mathbb{C}$ if it is differentiable
+      at $z_0$ or on all $z \in S$, respectively.
+
+\end{enumerate}
+\end{section}
+
+\begin{section}{Linear Operators}
+\noindent Linear maps and matrices
+
+\begin{enumerate}
+\item Hermitian matrices -- generalization of symmetric matrices over $\Re$ to
+      matrices over $\mathbb{C}$. $A$ is hermitian if 
+\[ A = \overline{A'} \]
+\item Unitary matrices -- generalization of orthognal matrices over $\Re$ to
+      matrices over $\mathbb{C}$. $A$ is unitary if
+\[ A \overline{A'} = I \]
+\end{enumerate}
+\end{section}
+
+\begin{section}{Dynamical Systems}
+\begin{enumerate}
+\item \emph{Trajectory}, \emph{orbit} -- path of solution to $x_{t+1} = f(x_t)$
+\item \emph{Absorbing Set} --
+\item \emph{Attractor} --
+\item \emph{Natural measure} -- frequency of points visited by trajectory,
+      associated with a specific trajectory
+\item \emph{Ergodicity} -- (heuristic) average over trajectory converges to
+      ensemble marginal average (specific random variable $X[t]$)
+\item \emph{Stationary distribution} -- $\tau$ is stationary if whenever
+      $x_0 \sim \tau \to x_1 \sim \tau$. I.e. if $x_0 \sim \tau$, marginal
+      distribution for all indices $t > 0$ are also $\tau$
+\item \emph{Lyapunov exponent} -- 
+\item \emph{Trapping region} --
+\item \emph{Correlation dimension} --
+\item \emph{Embedding dimension} --
+\item \emph{Chaotic} -- iff Lyapunov exponent $> 1$
+\item \emph{Homoclinic orbits} -- trajectories that start and end at the same
+      fixed point
+\item \emph{Nullclines} - curves in the phase portrait where a component 
+      derivative is 0, e.g. in 2-dimensions the continuous curve where
+      $\dot{x} = 0$.
+\item \emph{Basin of attraction} - for a fixed point $x^*$ are all points
+      $x$ such that all trajectories starting from such $x$ have $x_t \to x^*$
+\item Types of stability
+      \begin{enumerate}
+      \item \emph{Lagrange stability} - $\forall x \in \Omega$, orbit starting
+      from $x$ is a precompact subset of $\Omega$, i.e. $|x(t)|$ is bounded
+      for all $t$.
+      \item \emph{Lyapunov stability} - trajectories of close points remain
+      close. Formally, for discrete time, $\forall x, y \in \Omega$
+      \[ \lim_{y \to x} \sup_{k \geq 0} \| T^k y - T^k x \| = 0 \]
+      \item \emph{Asymptotic stability} or \emph{attracting fixed point} - 
+      all trajectory starting near fixed point $x^*$ approaches/converges
+      to $x^*$
+      \item \emph{Global asymptotic stability} or \emph{globally attracting
+      fixed point} - Lyapunov stable and all starting point converges to
+      some fixed point $x^*$
+      \end{enumerate}
+\end{enumerate}
+\end{section}
+
+\begin{section}{Measure Theory and Probability}
+\begin{subsection}{Measure Theory}
+\begin{enumerate}
+\item 
+\end{enumerate}
+\end{subsection}
+\end{section}
+
+\begin{section}{Stochastic Processes}
+\begin{subsection}{Processes}
+
+\end{subsection}
+\end{section}
 \end{document}
