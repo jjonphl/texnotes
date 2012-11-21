@@ -1,0 +1,118 @@
+\documentclass{article}
+\usepackage{amsfonts,amsmath,amsthm}
+\usepackage{multirow}
+
+\title{Unsorted Statistical Tests}
+\author{Miguel Manese}
+\date{October 13, 2012}
+
+\begin{document}
+\maketitle
+
+\begin{section}{Unsorted Tests}
+\begin{subsection}{$\chi^2$ Goodness of Fit Test}
+Compares observed frequency of occurrence vs expected frequency of occurrence.
+Let $X$ be a (discrete) random variable, $X:\Omega \to \Gamma$, $F(X)$ is the
+unknown distribution of $X$, $F_0(X)$ is the empirical distribution of $X$,
+$O_j = \#\{X_i = j\}$ with $j \in \Gamma$ and $i = 1, \ldots, N$, 
+$E_j =$ expected frequency of occurrence of $j$. Test $H_0: F(x) = F_0(x)$ vs
+$H_1: F(x) \neq F_0(x)$. Under $H_0$
+
+\[ \hat{\chi}^2 = \sum_{j \in \Gamma} \frac{(O_j - E_j)^2}{E_j} \sim
+    \chi^2_\nu \]
+
+\noindent where $\nu = |\Gamma|-1$. Reject $H_0$ at level $\alpha$ if 
+$\hat{\chi}^2 > \chi^2_{\nu,\alpha}$.
+\end{subsection}
+
+\begin{subsection}{Pearson's $\chi^2$-test}
+Given a contingency table, i.e. two factors and the counts for each combination
+of levels of those factors, $H_0$: the two factors are independent vs $H_1$:
+they are independent. Let $X$ be the random variable for the first factor,
+$Y$ for the second factor. If the two factors are independent then the 
+expected frequency for cell $\{i,j\}$ is $N \times P(X = i, Y = j) = N \times 
+P(X = i) P(Y = j)$. Estimator for $P(X = i)$ is the marginal frequency
+for $X = i$.\\
+
+\noindent Example from R's \texttt{chisq.test}:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|r|r|r|}
+\hline
+\multirow{2}{*}{Gender} & \multicolumn{3}{|c|}{Party} \\  \cline{2-4}
+ & \multicolumn{1}{|c|}{Democrat} &
+   \multicolumn{1}{|c|}{Independent} &
+   \multicolumn{1}{|c|}{Republican} \\ \hline
+Male & 762 & 327 & 468 \\ \hline
+Female & 484 & 239 & 477 \\ \hline
+\end{tabular}
+\end{table}
+
+\noindent Example computation for expected value in upper-leftmost cell
+\begin{align}
+N &= 762 + 327 + 468 + 484 + 239 + 477 = 2757 & \text{(total observations)} 
+\notag\\ 
+P(\mathrm{Gender} = \mathrm{Male}) &= \frac{762+327+468}{2757} = 0.5647443 &
+\notag\\
+P(\mathrm{Party}= \mathrm{Democrat}) &= \frac{762+484}{2757} = 0.4519405 
+\notag\\
+%P(\mathrm{Gender} = \mathrm{Male}, \mathrm{Party} = \mathrm{Democrat}) &= 
+%0.7647443 \times 0.4519405 = 0.2552308 &  \notag\\
+E_{\mathrm{Male},\mathrm{Democrat}} &= N \times 0.5647443 \times 0.4519405 
+= 703.6714 & \text{(expected frequency)}\notag
+\end{align}\\
+
+\noindent Use stat in $\chi^2$ goodness of fit test with $\nu = (r-1)(c-1)$.
+\end{subsection}
+\end{section}
+
+\begin{section}{Econometrics Tests}
+Tests made by econometricians
+
+\begin{subsection}{Durbin-Watson Test}
+\end{subsection}
+
+\begin{subsection}{Dickey-Fuller Unit-Root Test}
+Given the AR(1) model $X_t = \phi_1 X_{t-1} + \varepsilon_t$, testing
+for unit-root means $H_0: \phi_1 = 1$. Differencing $X_t$
+
+\[ \delta X_t = X_t - X_{t-1} = (\phi_1 - 1) X_{t-1} + \varepsilon_t \]
+
+\noindent the null is equivalent to $H_0: \delta = (\phi_1 - 1) = 0$. The
+test procedure is to regress $\delta X_t$ vs $X_{t-1}$, and the test
+statistic is $\hat{\delta} / \hat{\sigma}_\delta$. For some reason
+this is not follow the $t$ distribution and a separate Dickey-Fuller 
+table exists for different p-values given sample-size. 
+
+\begin{subsubsection}{Augmented Dickey-Fuller Test}
+Let $X_t \sim $ AR($p$), $p > 1$, and it is fitted using an AR(1) model,
+say $X_t = \mu + \phi_1 X_{t-1} + \nu_t$. Then
+
+\[ \nu_t = \phi_2 X_{t-2} + \ldots + \phi_p X_{t-p} + \varepsilon_t \]
+
+\noindent and the $\nu_t$ are correlated. Regressing with the AR(1) assumption
+will give invalid result. Instead
+
+\begin{align}
+X_t &= \mu + \sum_{i=1}^p \phi_i X_{t-i} + \varepsilon_t \notag\\
+   &= \mu + (\phi_1 + \phi_2) X_{t-1} - (\phi_2) (X_{t-1} - X_{t-2}) +
+      \text{???} \notag
+\end{align}
+
+\noindent TODO: it will go down to this
+
+\[ \delta X_t = \mu + \beta t + \delta X_{t-1} + \sum_{i=1}^{p-1}
+     \delta X_{t-1-i} + \varepsilon_t \]
+
+\noindent Regress the above equation, same DF stat, same critical values.
+\end{subsubsection}
+\end{subsection}
+
+\begin{subsection}{Phillips-Peron Unit-Root Test}
+\end{subsection}
+
+\begin{subsection}{Johansen's Cointegration Test}
+\end{subsection}
+\end{section}
+\end{document}

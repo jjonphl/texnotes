@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsfonts,amsmath,amsthm,url}
+
+\title{Chebyshev Inequality}
+\author{Miguel Manese}
+\date{September 21, 2012}
+
+\newtheorem{thm}{Theorem}
+\begin{document}
+\maketitle
+
+\begin{section}{Overview}
+\begin{thm} (Chebyshev's inequality) Given $(\Omega, \mathcal{F}, P)$ let
+$X : \Omega \to \Re^+$ be a random variable with $0 < EX < \infty$. Then
+for any $r > 0$
+
+\[ (1 - r)^2 + \frac{(E X)^2}{E X^2} \leq P\{X > r E X\} \leq \frac{1}{r} \]
+
+\noindent Let $X = (Y - E Y)^2$, $E Y^2 < \infty$ and $Var(Y) = \sigma_Y^2$, 
+then using the second inequality with $\epsilon = \sqrt{r \sigma_Y^2} > 0$ 
+
+
+\[ P\{ |Y - EY| > \epsilon \} \leq \frac{\sigma_Y^2}{\epsilon^2} \]
+\end{thm}
+
+\noindent \emph{Proof} Let $k = E X$ and consider $r 1\{X > k r\} \leq X$.
+\end{section}
+
+\begin{section}{Applications}
+Useful for proving convergence in probability.
+\end{section}
+\end{document}
