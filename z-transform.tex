@@ -27,9 +27,9 @@ given by
  \frac{1}{4}, \frac{1}{8}, \ldots \}$
   \begin{align}
   X(z) &= 1 + \frac{1}{2}z^{-1} + \frac{1}{4}z^{-2} + \ldots +
-              (\frac{1}{2})^{n} z^{-n} + \ldots \notag\\
-       &= \sum_{n=0}^{\infty} (\frac{1}{2})^{n} z^{-n} 
-        = \sum_{n=0}^{\infty} (\frac{1}{2} z^{-1})^{n}\notag 
+              \left(\frac{1}{2}\right)^{n} z^{-n} + \ldots \notag\\
+       &= \sum_{n=0}^{\infty} \left(\frac{1}{2}\right)^{n} z^{-n} 
+        = \sum_{n=0}^{\infty} \left(\frac{1}{2} z^{-1}\right)^{n}\notag 
   \end{align}
   which converges to $\frac{1}{1 - \frac{1}{2}z^{-1}}$ if 
   $|\frac{1}{2} z^{-1}| < 1$ or equivalently $|z| > \frac{1}{2}$ and so
@@ -39,13 +39,14 @@ given by
   \end{align}
 \item ROC of infinite duration signals
   \begin{align}
-  |X(z)| &= |\sum_{n} x(n)r^{-n} e^{-i\theta n}| \notag\\
+  |X(z)| &= \left|\sum_n x(n)z^{-n}\right|
+          = \left|\sum_{n} x(n)r^{-n} e^{-i\theta n}\right| \notag\\
          &\leq \sum_{n} |x(n) r^{-n} e^{-i\theta n}| 
-           = \sum_{n} |x(n) r^{n}|\notag\\
+           = \sum_{n} |x(n) r^{-n}|\notag\\
          &= \sum_{n= -\infty}^{-1} |x(n) r^{-n}| +
-            \sum_{n=0}^{\infty} |\frac{x(n)}{r^{n}}| \notag\\
+            \sum_{n=0}^{\infty} \left|\frac{x(n)}{r^{n}}\right| \notag\\
          &= \sum_{n=1}^{\infty} |x(-n) r^{n}| +
-            \sum_{n=0}^{\infty} |\frac{x(n)}{r^{n}}|\notag
+            \sum_{n=0}^{\infty} \left|\frac{x(n)}{r^{n}}\right|\notag
   \end{align}
   \begin{enumerate}
   \item For 1st term to converge, $\exists r_{1}$ s.t. $|x(-n) r_{1}^{n}|
@@ -151,7 +152,7 @@ $X(z) = \sum_{n=-\infty}^{\infty} x_{n} z^{-n}$.
 besides at $z = 0$.
 \item The system $X$ is called \emph{causal} if 
 $X(z) = \sum_{n=0}^{\infty} x_{n} z^{-n}$ (i.e. zero for negative integers). 
-This is because of $X$ is the transfer function, then convolving it with
+This is because if $X$ is the transfer function, then convolving it with
 an input will only involve past values of the input and so is causal.
 \item If the series has infinite support, then it can have poles. Common
 sense in the finite case does not necessarily extend to the infinite case,
