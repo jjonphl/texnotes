@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage{amsfonts, amsmath, amsthm}
+
+\newcommand{\Int}{\mathcal{Z}}
+\newcommand{\Cplx}{\mathcal{C}}
+
+\title{Unsorted Notes}
+\author{Miguel Manese}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{section}{Time Series 2013-03-22}
+\begin{enumerate}
+\item Branching process
+  \[ X_{t+1} = \sum_{j=1}^{X_t} Z_{t,j} \]
+  where $\{Z_{t,j}\}$ are IID of $\Int^+$.
+\item Kolmogorov's Theorem: Let 
+  $\Gamma = \{\mathbf{t} = (t_1, \ldots, t_n)' \in T^n :
+     t_1 < t_2 < \ldots < t_n, n = 1, \ldots \}$, $T \subset \Re$,
+  $F_{\mathbf{t}} = P(X_{t_1} \leq x_1, \ldots, X_{t_n} \leq x_n)$,
+  $\mathbf{x} \in \Re^n$. The probability distribution function
+  $\{F_{\mathbf{t}}(\cdot), \mathbf{t} \in \Gamma\}$ are the df of some
+  stochastic process iff $\forall n \in \Int^+$, 
+  $\mathbf{t} \in \Gamma$ and $1 \leq i \leq n$, 
+  $\lim_{x_i \to \infty} F_{\mathbf{t}}(\mathbf{x}) = 
+     F_{\mathbf{t}_{(i)}}(\mathbf{x}_{(i)})$ where $\mathbf{t}_{(i)}$ and
+  $\mathbf{x}_{(i)}$ are the $(n-1)$-component vectors obtained by deleting
+  the $i$-th component of $\mathbf{t}$ and $\mathbf{x}$.\\
+
+  If $\phi_{\mathbf{t}}(\cdot)$ is the characteristic function for 
+  $F_{\mathbf{t}}(\cdot)$, the theorem is equivalent to
+  $\lim_{u_i \to 0} \phi_{\mathbf{t}}(\mathbf{u}) = 
+    \phi_{\mathbf{t}_{(i)}}(\mathbf{u}_{(i)})$ where 
+  \[\phi_{\mathbf{t}}(\mathbf{u}) = \int_{\Re^n} \exp(i \mathbf{u}'\mathbf{x})
+     F_{\mathbf{t}}(dx_1, \ldots, dx_2)\]
+\item Autocovariance functions -- for (weakly) stationary processes
+  \begin{enumerate}
+  \item If $\gamma(\cdot)$ is the ACVF of stationary proc $\{X_t\}$ then
+    \begin{enumerate}
+    \item $\gamma(0) \geq 0$
+    \item $|\gamma(h)| \leq \gamma(0) \forall \Int$
+    \item $\gamma(h) = \gamma(-h) \forall h \in \Int$
+    \end{enumerate}
+  \item Theorem 1.5.1 (p27, characterization of ACVF) 
+  \label{brockwell:thm:1.5.1}
+  $\gamma : \Int \to \Re$ is the ACVF of a stationary process iff
+  it is even ($\gamma(h) = \gamma(-h)$) and non-negative definite
+  ($\forall n \in \Int^+, \mathbf{a} \in \Re^n, \mathbf{t} \in \Int^n 
+   \to \sum_{i,j=1}^n a_i \gamma(t_i - t_j) a_j \geq 0$)
+  \end{enumerate}
+\end{enumerate}
+\end{section}
+
+\begin{section}{Time Series, Brockwell 20120322}
+\begin{enumerate}
+\item Theorem 1.5.1 (p27, characterization of ACVF) -- see 
+  \ref{brockwell:thm:1.5.1}.
+\item Theorem 4.3.1 (p117, Herglotz') -- $\gamma : \Int \to \Cplx$ is 
+  non-negative definite iff $\exists F : [-\pi,\pi] \to \Re^+$ which
+  is right-continuous, non-decreasing and bounded with $F(-\pi) = 0$ 
+  such that $\gamma(h) = \int_{(-\pi,\pi]} e^{ihv} dF(v)$ $\forall h \in \Int$. 
+  \begin{enumerate}
+  \item $F(\cdot)$ is the \emph{spectral distribution} of $\gamma$
+  \item $f = dF$ is the \emph{spectral density} of $\gamma$ (if it exists)
+  \item $\gamma$ is Hermitian ($\gamma(-h) = \overline{\gamma(h)}$,
+    complex equivalent of even/symmetric) if 
+    $\gamma(h) = \int_{(-\pi,pi]} e^{ihv} dF(v)$
+  \item $\gamma(h)$ non-negative definite $\to \gamma(h)$ is Hermitian
+  \end{enumerate}
+\item Corollary 4.3.1 (p119) $\gamma: \Int \to \Re$ is the ACVF of a
+  stationary process iff either
+  \begin{itemize}
+  \item $\gamma(h) = \int_{(-\pi,\pi]} e^{ihv} dF(v)$ $h \in \Int$, 
+  $F$ is right continuous, non-decreasing, bounded and $F(-\pi) = 0$. Or,
+  \item $\sum_{i=1}^N \sum_{j=1}^N a_i \gamma(i-j) \overline{a_j} \geq 0$
+  $\forall N \in \Int^+$, $a \in \Cplx^N$.
+  \end{itemize}
+\end{enumerate}
+\end{section}
+\end{document}

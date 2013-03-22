@@ -1,0 +1,101 @@
+\documentclass{article}
+\usepackage{amsfonts, amsmath}
+
+\title{Technical Analysis Notes}
+\author{Miguel Manese}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{section}{Technical Indicators}
+\begin{subsection}{Classifications}
+
+\begin{enumerate}
+\item Leading indicators -- leads price movements, i.e. they anticipate price movements.
+\item Lagging indicators -- past values greatly influence current value for the indicator
+\end{enumerate}
+
+\begin{enumerate}
+\item Trend following indicators - 
+\item Momentum indicators - 
+\item ...
+\end{enumerate}
+
+\end{subsection}
+
+\begin{subsection}{Moving Averages}
+\begin{description}
+
+\item[Simple Moving Average]  
+ \[ \text{SMA} = \frac{1}{n} \sum_{t=1}^n P_t \]
+
+\item[Exponential Moving Average] Let $K = \frac{2}{n+1}$
+ \begin{align}
+ \text{EMA}_t &= K P_t + (1 - K) \text{EMA}_{t-1} \notag\\
+              &= \text{EMA}_{t-1} + K (P_t - \text{EMA}_{t-1}) \notag
+ \end{align}
+
+\item[Welles Wilder Moving Average] Like EMA but $K = \frac{1}{n}$
+ \[ \text{WWMA}_t = K P_t + (1 - K) \text{WMMA}_{t-1} \]
+
+ (Boundary condition) if lag is $n$, for compute $n-1$ as
+ \[ \text{WMMA}_{n-1} = \frac{1}{n-1} \sum_{t=1}^{n-1} P_t \]
+ then use the formula above
+
+\item[Double Exponential Moving Average]
+ \[ \text{DEMA}_t = 2 \times \text{EMA}(\{P_t\}) - 
+         \text{EMA}(\text{EMA}(\{P_t\})) \]
+
+\item[Generalized DEMA] Let $v \in [0, 1]$ (v-factor). $v = 1$ is DEMA
+ \[ \text{GDEMA}_t = (1 + v) \times \text{EMA}(\{P_t\}) - 
+         v \times \text{EMA}(\text{EMA}(\{P_t\})) \]
+
+\item[T3] Uses GDEMA with $v$ usually set at 0.7
+ \[ \text{T3} = \text{GDEMA}(\text{GDEMA}(\text{GDEMA}(\{P_t\}))) \]
+
+\item [Weighted Moving Average] 
+ \[ \text{WMA}_t = \frac{1}{n!} \sum_{i=0}^{n-1} P_{t-i} \times i \]
+
+\item[Elastic Volume-Weighted Moving Average] Let $n =$ \textit{volume period}
+ \[ \text{EVWMA}_t = \frac{1}{n} [(n - V_t) \text{EVWMA}_{t-1} + V_t P_t] 
+   \text{(???)}\]
+
+\item[Zero-Lag Exponential Moving Average] 
+
+\item[Volume-weighted Average Price]
+
+\item[Volume-weighted Moving Average]
+
+\item[Variable Moving Average]
+
+\end{description}
+\end{subsection}
+
+\begin{subsection}{Unsorted Indicators}
+
+
+\begin{description}
+\item[Moving Average Convergence-Divergence (MACD)] momentum oscillator
+  \begin{align}
+  \text{MACD}_t &= \text{EMA}^{12}_t(\{P_t\}) - \text{EMA}^{26}_t(\{P_t\}) \notag\\
+  \text{MACD}^{\text{signal}}_t &= \text{EMA}^9_t(\text{MACD}_t)\notag\\
+  \text{MACD}^{\text{histogram}}_t &= \text{MACD}_t - \text{MACD}^{\text{signal}}_t \notag
+  \end{align}
+
+\noindent When $\text{MACD}_t \nearrow 0$ then the shorter EMA is increasing
+and/or longer EMA is decreasing which means upside momentum is increasing.
+Similarly $\text{MACD}_t \searrow 0$ means downside momentum is increasing.
+
+\item[Relative Strength Index (RSI)] 
+\item[Commodity Channel Index (CCI)]
+\item[Stochastic Oscillator]
+\item[Williams \%R]
+\end{description}
+\end{subsection}
+
+\begin{subsection}{Lagging Indicators}
+
+\end{subsection}
+\end{section}
+\end{document}
