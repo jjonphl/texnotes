@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsfonts,amsmath,amsthm,url}
+
+\newtheorem{problem}{Problem}
+\newenvironment{penum}{
+    \renewcommand{\theenumi}{\alph{enumi}}
+    \renewcommand{\labelenumi}{(\theenumi)}
+    \begin{enumerate}}{\end{enumerate}}
+
+
+\title{Book Exercises: Statistical Inference 2e}
+\author{Casella \& Berger, 2002, Duxbury}
+%\author{Miguel Manese}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{section}{Chapter 2: Transformations and Expectations}
+
+\begin{subsection}{Problem 2.17}
+\begin{problem}
+A \emph{median} of a distribution is a value $m$ such that 
+$P(X \leq m) \geq \frac{1}{2}$ and $P(X \geq m) \geq \frac{1}{2}$.
+(If $X$ is continuous, $m$ satisfies $\int_{-\infty}^m f(x) dx =
+\int_{m}^{\infty} f(x) dx = \frac{1}{2}$.) Find the median of the 
+following distributions
+
+\begin{penum}
+\item $f(x) = 3x^2$, $0 < x < 1$
+\item $f(x) = \frac{1}{\pi (1 + x^2)}$, $-\infty < x < \infty$
+\end{penum}
+\end{problem}
+
+\begin{enumerate}
+\item $f(x) = 3x^2$, $0 < x < 1$
+
+  \[ F(x) = \int_0^1 3z^2 dz = \left. z^3 \right|_0^x = x^3 \]
+  \[ F(x) = 0.5 \rightarrow x^3 = 0.5 \rightarrow x = \sqrt[3]{0.5} \]
+
+\item $f(x) = \frac{1}{\pi (1 + x^2)}$, $x \in \Re$
+
+  \[ F(x) = \int_{-\infty}^x \frac{1}{\pi(1 + z^2)} dz = \left. \frac{1}{\pi} 
+      \tan^{-1}(z) \right|_{-\infty}^x = 
+      \frac{1}{\pi} (\tan^{-1}(x) - (-\frac{\pi}{2})) \]
+  \[ F(x) = 0.5 \rightarrow \tan^{-1}(x) + \frac{\pi}{2} = \frac{\pi}{2} 
+     \rightarrow \tan^{-1}(x) = 0 \rightarrow x = 0 \]
+
+\end{enumerate}
+\end{subsection}
+
+\end{section}
+\end{document}

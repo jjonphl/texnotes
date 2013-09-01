@@ -19,4 +19,55 @@
 
 \end{section}
 
+\begin{section}{Unsorted}
+\begin{subsection}{Tangency Portfolio}
+Also known as \emph{Sharpe Optimal Portfolio}. Given risk-free rate $r_f$,
+risky assets $i = 1, \ldots, N$ with mean return $\mathbf{r^*}$ and return
+covariance $\mathbf{V}^*$, let $\mathbf{r} = (r_f, \mathbf{r^*}')'$ and 
+$\mathbf{V} = 
+\begin{bmatrix}
+0 & 0 \\
+0 & \mathbf{V}^*
+\end{bmatrix}$. Let $\mathbf{x} = (x_0, x_1, \ldots, x_N)'$ be the positions
+with $\mathbf{x}'\mathbf{1} = 1$, then for some $\tau > 0$ the risk-adjusted
+return for the portfolio, $R_p$, is
+
+\begin{align}
+R_p &= \mathbf{x}'\mathbf{r} - \tau \mathbf{x}'\mathbf{V}\mathbf{x} \notag\\
+  & =
+   x_0 r_f + \sum_{i=1}^N x_i r_i - \tau \sum_{i=1}^N \sum_{j=1}^N x_i \sigma_{i,j} x_j \notag
+\end{align}
+
+\noindent Using $x_0 = 1 - \sum_{i=1}^N x_i$ we have
+
+\[ r_f + \sum_{i=1}^N x_i (r_i - r_f) - \tau \sum_{i=1}^N \sum_{j=1}^N x_i \sigma_{i,j} x_j \]
+
+\noindent Maximizing
+
+\[ \frac{\partial}{\partial x_k} R_p = 
+    (r_k - r_f) + 2 \tau \sum_{j=1}^N x_k \sigma{k,j} \]
+
+\noindent For the second term note that $k$ happens once in $i = 1, \ldots, N$
+and another in $j = 1, \ldots, N$, which explains the $2$. In matrix form this
+becomes
+
+\[ \mathbf{V}^* \mathbf{x}^* = \frac{1}{2 \tau} (\mathbf{r}^* - r_f) \]
+
+\noindent where $\mathbf{x}^* = (x_1, \dots, x_N)'$. The solution is
+$\mathbf{x}^* = (\mathbf{V}^*)^{-1}$. However this is not normalized, i.e. 
+$(\mathbf{x}^*)' \mathbf{1} = 1 - x_0$. To normalize
+
+\[ \mathbf{\hat{x}}^* = \frac{1}{(\mathbf{x}^*)' \mathbf{1}} \mathbf{x}^* =
+    \frac{1}{\frac{1}{2 \tau} (\mathbf{V}^*)^{-1} (\mathbf{r}^* - r_f)' \mathbf{1}}
+     \frac{1}{2 \tau} (\mathbf{V}^*)^{-1} (\mathbf{r}^* - r_f) =
+    \frac{1}{(\mathbf{V}^*)^{-1} (\mathbf{r}^* - r_f)' \mathbf{1}}
+      (\mathbf{V}^*)^{-1} (\mathbf{r}^* - r_f) \]
+
+\noindent i.e. $\mathbf{\hat{x}}^*$ does not depend on $\tau$.
+
+How to show that is tangent to the efficient frontier?
+
+
+\end{subsection}
+\end{section}
 \end{document}

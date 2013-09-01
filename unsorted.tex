@@ -79,4 +79,105 @@
   \end{itemize}
 \end{enumerate}
 \end{section}
+
+\begin{section}{Characteristic Funciton for Standard Normal 20130407}
+The standard normal pdf is given by
+
+\[f(x) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{\frac{-x^2}{2}} dx \]
+
+\begin{enumerate}
+\item \emph{Physicists' version}
+
+\begin{align}
+\varphi(t) &= E[e^{itX}] = \int_{-\infty}^\infty e^{itx} \frac{1}{\sqrt{2\pi}}
+   e^{\frac{-x^2}{2}} dx \notag\\
+           &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} 
+               \exp\left(-\frac{x^2}{2} + itx\right) dx \notag\\
+           &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} 
+               \exp\left(\frac{1}{2} (-x^2 + 2itx - (it)^2 + (it)^2)\right) 
+               dx \notag\\
+           &= \frac{e^{\frac{(it)^2}{2}}}{\sqrt{2\pi}} \int_{-\infty}^{\infty} 
+               \exp\left(-\frac{1}{2} (x^2 - 2itx + (it)^2)\right) dx \notag\\
+           &= \frac{e^{-\frac{t^2}{2}}}{\sqrt{2\pi}} \int_{-\infty}^{\infty} 
+               \exp\left(-\frac{1}{2} (x + it)^2\right) dx \notag\\
+           &= e^{-\frac{t^2}{2}} \cdot 1 
+             \qquad\text{Normal with mean $-it$ and variance 1} \notag
+\end{align}
+\item \emph{Mathematician's version}
+
+\begin{align}
+\varphi(t) &= \int_{-\infty}^\infty e^{itx} \frac{1}{\sqrt{2\pi}}
+              e^{-\frac{x^2}{2}} dx \notag\\
+           &= \int_{-\infty}^\infty (\cos(tx) + i\sin(tx)) \frac{1}{\sqrt{2\pi}}
+              e^{-\frac{x^2}{2}} dx \notag\\
+           &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty \cos(tx) 
+               e^{-\frac{x^2}{2}} dx +
+              \frac{i}{\sqrt{2\pi}} \int_{-\infty}^\infty \sin(tx) 
+               e^{-\frac{x^2}{2}} dx \notag
+\end{align}
+
+Since $\sin(-x) = -\sin(x)$
+
+\begin{align}
+\frac{i}{\sqrt{2\pi}} \int_{-\infty}^\infty \sin(tx) e^{-\frac{x^2}{2}} dx 
+    &= \frac{i}{\sqrt{2\pi}} \int_{-\infty}^0 \sin(tx) e^{-\frac{x^2}{2}} dx +
+       \frac{i}{\sqrt{2\pi}} \int_{0}^\infty \sin(tx) e^{-\frac{x^2}{2}} dx 
+       \notag\\
+    &= \frac{i}{\sqrt{2\pi}} \int_0^\infty \sin(-tx) e^{-\frac{(-x)^2}{2}} dx +
+       \frac{i}{\sqrt{2\pi}} \int_{0}^\infty \sin(tx) e^{-\frac{x^2}{2}} dx 
+       \notag\\
+    &= \frac{-i}{\sqrt{2\pi}} \int_0^\infty \sin(tx) e^{-\frac{x^2}{2}} dx +
+       \frac{i}{\sqrt{2\pi}} \int_{0}^\infty \sin(tx) e^{-\frac{x^2}{2}} dx 
+       \notag\\
+    &= 0\notag
+\end{align}
+
+We need to show that $\varphi'(t) = -t \varphi(t)$.
+
+\[\varphi'(t) = \frac{1}{\sqrt{2\pi}} \int -x \sin(tx) e^{-\frac{x^2}{2}} dx \]
+
+Integrating by parts using
+
+\begin{align}
+u(x) &= \sin(tx) & \qquad dv(x) &= e^{-\frac{x^2}{2}} (-x) dx \notag\\
+du(x) &= t \cos(tx) dx & \qquad v(x) &= e^{-\frac{x^2}{2}} \notag
+\end{align}
+
+we have
+
+\begin{align}
+\varphi'(t) &= \frac{1}{\sqrt{2\pi}} \sin(tx) e^{-\frac{x^2}{2}} -
+    \frac{1}{\sqrt{2\pi}} \int t \cos(tx) e^{-\frac{x^2}{2}} dx \notag\\
+            &= \frac{1}{\sqrt{2\pi}} \sin(tx) e^{-\frac{x^2}{2}} -
+               t \varphi(t) \notag
+\end{align}
+
+Not sure how to remove the first term, except that it is 0 when $t=0$ (TODO).
+
+Assuming we have shown that $\varphi'(t) = -t \varphi(t)$, we can solve
+the differential equation below
+
+\begin{align}
+\frac{\varphi'(t)}{\varphi(t)} &= -t \notag\\
+\ln(\varphi(t)) &= -\frac{t^2}{2}  \qquad\text{(Integrate both sides.)}\notag\\
+\varphi(t) &= e^{-\frac{t^2}{2}} \notag%\\
+%\varphi(t) e^{\frac{t^2}{2}} &= 1 \notag
+\end{align}
+
+
+%\begin{align}
+%d(\varphi(t) e^{\frac{t^2}{2}}) &= \varphi'(t) e^{\frac{t^2}{2}} +
+%  \varphi(t) e^{\frac{t^2}{2}} \left(\frac{2}{2} t\right) \notag\\
+%    &= -t \varphi(t) e^{\frac{t^2}{2}} + t \varphi(t) e^{\frac{t^2}{2}} 
+%      \notag\\
+%    &= 0\notag
+%\end{align}
+
+%I.e. $d(\varphi(t) e^{\frac{t^2}{2}}) = 0$ for all $t$, which means it is
+%constant. Using $\varphi(0) = E[1] = 1$, we have 
+%$\varphi(t) e^{\frac{t^2}{2}} = \varphi(0) = 1$ and 
+%$\varphi(t) = e^{-\frac{t^2}{2}}$.
+
+\end{enumerate}
+\end{section}
 \end{document}

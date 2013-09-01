@@ -35,5 +35,49 @@ $\mathbf{\phi_{h}} = \Gamma_{h}^{-1} \mathbf{\gamma_{h}}$.
 
 \begin{section}{Linear Time Series}
 \end{section}
+
+\begin{section}{Unsorted}
+
+\begin{subsection}{Stationary ARMA processes}
+\begin{enumerate}
+\item For any ACVF $\gamma(\cdot)$ s.t. $\lim_{h \to \infty} \gamma(h) = 0$
+and some integer $k > 0$, $\exists$\ ARMA process $\{X_t\}$ with ACVF 
+$\gamma_{X}(h) = \gamma(h)$ for $h = 0, 1, 2, \ldots, k$ (note: the two ACVF 
+are identical only up to $k$)
+\item (Definition: ARMA(p,q)) $\{X_t\} \sim \text{ARMA}(p,q)$ if 
+$\{X_t\}$ is stationary and $\forall t: X_t - \sum_{i=1}^p \phi_i X_{t-i} =
+ Z_t + \sum_{j=1}^q \theta_i Z_{t-j}$ where $\{Z_t\} \sim \text{WN}(0, 
+ \sigma^2)$.\\
+ 
+Also: $\phi(B) X_t = \theta(B) Z_t$, where $B^j X_t = X_{t-j}$, 
+ $\phi(z) = 1 - \sum_{i=1}^p \phi_i z^j$, $\theta(z) = 1 + \sum_{j=1}^q 
+ \theta_i z^j$
+\end{enumerate}
+\end{subsection}
+
+\begin{subsection}{Holt-Winters Filter (TODO)}
+\begin{enumerate}
+\item $X_t = m_t + Z_t$ with $EZ_t = 0$
+\item Consider $\hat{m}_1 = X_1$, $\hat{m}_t = a X_t + (1 - a)\hat{m}_{t-i}$, 
+  i.e. $\hat{m}_t$ is the weighted average of current and past observation\\
+
+If $\{X_t\}$ is stationary then $m_t = m~\forall t$, we are now concerned
+only with $\{Z_t\}$.
+\item \emph{Projection} of $Z_{n+h}$ to $\mathcal{F}_n$:
+ $P_n Z_{n+h} = \hat{m}_n$, for $h = 1, 2, \ldots$\\
+\item Generalize $P_n Z_{n+h} = \hat{a}_n + h \hat{b}_n$, for 
+ $h = 1, 2, \ldots$. Let $\hat{Z}_{n+1} = P_n Z_{n+1} = \hat{a}_n + \hat{b}_n$.
+\item Let $\hat{a}_{n+1} = \alpha Z_{n+1} - (1 - \alpha)(\hat{a}_n + 
+ \hat{b}_n)$
+\item Holt-Winters recursion
+  \begin{enumerate}
+  \item $\hat{Z}_{n+1} = \hat{a}_n + \hat{b}_n$
+  \item $\hat{a}_{n+1} = \alpha Z_{n+1} + (1 - \alpha)(\hat{a}_n + \hat{b}_n)$
+  \item $\hat{b}_{n+1} = \beta (\hat{a}_{n+1} - \hat{a}_n) + (1 - \beta) 
+    \hat{b}_n$
+  \end{enumerate}
+\end{enumerate}
+\end{subsection}
+\end{section}
 \end{document}
 
