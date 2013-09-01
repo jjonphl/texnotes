@@ -1,5 +1,5 @@
 \documentclass{article}
-\usepackage{amsfonts}
+\usepackage{amsfonts, amsmath}
 
 \title{Linear Regression}
 \author{Miguel Manese}
@@ -9,6 +9,7 @@
 \newcommand{\Var}{\mathrm{Var}}
 \renewcommand{\vec}[1]{\mathbf{\mathit{#1}}}
 \newcommand{\mat}[1]{\mathbf{#1}}
+\newcommand{\eh}{\hat{\varepsilon}}
 \begin{document}
 \maketitle
 
@@ -51,4 +52,44 @@ the following $p$ equations with $p$ unknowns (elements of $\hat{\vec{\beta}}$).
 \end{subsection}
 \end{section}
 
+\begin{section}{Unsorted}
+\begin{subsection}{Durbin-Watson test}
+Tests residuals for correlation. Let $\eh_i$ be the sample residual. The DW
+test statistic is defined as
+
+\[ DW = \frac{\sum_{i=2}^N (\eh_i - \eh_{i-1})^2}{\sum_{i=1}^N \eh_i^2} \]
+
+\noindent It can be shown that $DW \approx 2 (1 - \hat{\rho_1})$ like below
+
+\begin{align}
+DW &= \frac{\sum_{i=2}^N (\eh_i - \eh_{i-1})^2}{\sum_{i=1}^N \eh_i^2} \notag\\
+   &= \frac{\sum_{i=2}^N \eh_i^2 - \sum_{i=2}^N \eh_i \eh_{i-1} + 
+       \sum_{i=2}^N \eh_{i-1}^2}{\sum_{i=1}^N \eh_i^2} \notag\\
+   &\approx \frac{2 \left(\sum_{i=1}^N \eh_i^2 - \sum_{i=1}^N \eh_i \eh_{i-1} 
+     \right)}{\sum_{i=1}^N \eh_i^2} \notag\\
+   &= \frac{2 (\hat{\gamma}_0 - \hat{\gamma}_1)}{\hat{\gamma}_0} \notag\\
+   &= 2 (1 - \hat{\rho_1}) \notag
+\end{align}
+
+\noindent The value of $DW$ ranges from 0 to 4
+
+\begin{itemize}
+\item $DW = 2$ suggests $\rho_1 = 0$, i.e. $\varepsilon_i$ are uncorrelated
+\item $DW > 2$ suggests $\rho_1 < 0$, i.e. negatively correlated
+\item $DW < 2$ suggests $\rho_1 > 0$, i.e. positively correlated
+\end{itemize}
+
+\noindent The distribution of $DW$ under $H_0$ is given by
+
+\[ DW \overset{d}\sim \frac{\sum_{i=1}^{N-K} \nu_i \xi_i^2}{
+    \sum_{i=1}^{N-k} \xi_i^2} \]
+
+\noindent where $k$ is the number of regression variables, $xi_i$ are
+NID(0,1), and $\nu_i$ are the (nonzero) eigenvalues of
+$(\mat{I} - \mat{X}(\mat{X}'\mat{X})^{-1}\mat{X}')\mat{A}$, 
+$\mat{X}$ is the design matrix, and $\mat{A}$ is the matrix that transforms
+the residuals into $DW$ (i.e. $DW = \mat{\varepsilon}'\mat{A}\mat{\varepsilon}$).
+
+\end{subsection}
+\end{section}
 \end{document}
