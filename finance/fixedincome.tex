@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage{amsfonts, amsmath}
+
+\newcommand{\CF}{C\!F}
+
+\title{Fixed Income Notes}
+\author{Miguel Manese}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{section}{Duration and Convexity}
+Let $\CF_t$ be the cashflow at time $t$, $P$ the price per 100 par, $y$ the
+yield, and $f(\cdot)$ the function that computes the price $P$ from yield
+$y$. Then
+
+\begin{align}
+P_0 &= f(y_0) \notag\\
+  &= \sum_{i=1}^N \frac{\CF_{t_{i}}}{(1 + y_0)^{t_{i}}} \notag
+\end{align}
+
+The duration and convexity are sensitivity measures related to the first
+and second derivative of $f(\cdot)$ respectively. The first derivative of
+$f(\cdot)$ can be expressed as
+
+\begin{align}
+f'(y) &= \sum_{i=1}^N \frac{(- t_i) \CF_{t_{i}}}{(1 + y)^{t_i + 1}} \notag\\
+      &= - \left[\left(\sum_{i=1} \frac{t_i \CF_{t_{i}}}{(1 + y)^{t_i}} \right)
+        \times \frac{1}{y + i} \times \frac{1}{P}\right] \times P \notag\\
+      &= - \frac{D^*}{1 + y} \times P \notag\\
+      &= - D \times P \notag
+\end{align}
+
+\noindent where $D^{*}$ and $D$ are the \emph{Macaulay duration} and 
+\emph{modified duration} respectively. The second derivative can be expressed
+as
+
+\begin{align}
+f''(y) &= \sum_{i=1}^N \frac{(- t_i) (-1)(t_i + 1) 
+   \CF_{t_{i}}}{(1 + y)^{t_i + 2}} \notag\\
+      &= \left[\left(\sum_{i=1}^N \frac{t_i (t_i + 1) \CF_{t_{i}}}{(1 + y)^{t_i}}
+        \right) \times \frac{1}{(1 + y)^2} \times \frac{1}{P}\right]
+        \times P \notag\\
+      &= C \times P \notag
+\end{align}
+
+\noindent where $C$ is the \emph{convexity}. In terms of $D$ and $C$, the
+second-order Taylor-series expansion of $f(\cdot)$ about $y_0$ is
+
+\begin{align}
+P = f(y) &\approx P_0 + f'(y_0) (y - y_0) + \frac{1}{2} f''(y_0) (y - y_0)^2
+  \notag\\
+     &= P_0 + (-1) D \times P_0 (\Delta y) + 
+        \frac{1}{2} C \times P_0 (\Delta y)^2 \notag\\
+\Delta P &= - D \times P_0 (\Delta y) + \frac{1}{2} C \times P_0 (\Delta y)^2
+  \notag
+\end{align}
+
+In the above formulas $t_i$ are assumed to be year-fractions and that
+interest are compounded annually. For RPI with coupon periods less than
+one year, use $t_i$ that are in terms of coupon period and annualize
+the resulting $D$ and $C$ by $\frac{1}{2}$ and $\frac{1}{2^2} = \frac{1}{4}$
+respectively.
+
+The \emph{effective duration} and \emph{effective convexity} are based on
+the numerical derivative of $f(\cdot)$ about $y_0$. Given a small $\Delta y$,
+let $P_{\mp} = f(y_0 \mp \Delta y)$ and $D_{\mp} = $ the duration at 
+$y_0 \mp \Delta y$
+
+\begin{align}
+D_E &= \frac{P_{-} - P_{+}}{2 P_0 \Delta y} \notag\\
+C_E &= \frac{D_{-} - D_{+}}{\Delta y} \notag\\
+    &= \left(\frac{f(y_0 - \Delta y) - P_0}{P_0 \Delta y} - 
+              \frac{P_0 - f(y_0 + \Delta y)}{P_0 \Delta y}\right)
+       \times \frac{1}{\Delta y}\notag
+\end{align}
+\end{section}
+
+\end{document}
