@@ -1,0 +1,128 @@
+\documentclass{article}
+\usepackage{amsfonts,amsmath,amsthm,url}
+
+\newtheorem{problem}{Problem}
+\newenvironment{penum}{
+    \renewcommand{\theenumi}{\alph{enumi}}
+    \renewcommand{\labelenumi}{(\theenumi)}
+    \begin{enumerate}}{\end{enumerate}}
+
+
+\title{Book Notes \& Exercises: Sampling Techniques 3e}
+\author{Cochran, 1977, Wiley}
+%\author{Miguel Manese}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{section}{Ch 1: Introduction}
+
+\begin{subsection}{1.3: Principal Steps in a Sample Survey}
+\begin{enumerate}
+\item Define objectives of the survey.
+\item Define population to be sampled.
+\item Determine data to be collected -- to be able to do \#1.
+\item Set degree of precision desired. This determines the sample size.
+\item Determine method of measurement. E.g. via questionnaire vs interview;
+  send question by mail / phone / face-to-face.
+\item Define the \emph{frame} -- list of \emph{sampling units} that compose
+  the population.
+  \begin{itemize}
+  \item Sampling unit can be ambiguous. E.g. person? family? head of family?
+    city? fixed area of land (e.g. 1 hectare, for agricultural survey)?
+  \end{itemize}
+\item Selection of sample -- balance cost and efficiency (survey design!)
+\item Pre-test questionnaire and field methods on small scale -- before
+  doing full-fledged survey to see fix unforeseen problems.
+\item Do the field work.
+\item Analyze data, do summary, answer objectives.
+  \begin{itemize}
+  \item clean data, analyze, present, interpret.
+  \end{itemize}
+\item Gather information gained for future survey -- the more you know about 
+  the population the better the sampling design (stronger assumptions, etc)
+\end{enumerate}
+\end{subsection}
+
+\begin{subsection}{1.5: Probability Sampling}
+\begin{enumerate}
+\item Let $P$ be the population, $S_1, S_2, \ldots S_v \subset P$ be distinct
+  samples such that $\cup_i S_i = P$, and $\omega \in S_i \subset P$ for
+  one or more $i$ are the \emph{sampling units}.  
+\item $P(S_i) = \pi_i$ is the probability of choosing sample $S_i$.
+\item The estimator based on $S_i$, $X(S_i)$, is unique for each $i$.
+\end{enumerate}
+\end{subsection}
+
+\begin{subsection}{1.6: Non-probability Samplint}
+Examples:
+\begin{enumerate}
+\item Sample restricted to readily accessible part of the population (due
+  to cost constraint).
+\item Sample is made haphazardly -- no planning/design, may be \emph{biased}.
+\item Select \emph{typical} units -- subjective bias of sampler
+\item Sample consists of volunteers only.
+\end{enumerate}
+\end{subsection}
+\end{section}
+
+\begin{section}{Ch 2: Simple Random Sampling}
+\end{section}
+
+\begin{section}{Ch 3: Sampling Proportions and Percentages}
+\end{section}
+
+
+\begin{section}{Ch 4: The Estimation of Sample Size}
+\end{section}
+
+\begin{section}{Ch 5: Stratified Random Sampling}
+\begin{subsection}{Unsorted}
+\begin{enumerate}
+\item Partition population into non-overlapping subpopulations 
+  $N_1, N_2, \ldots, N_s$. I.e. $N_i \cap N_j = \null$ whenever $i \neq j$,
+  and $\cup_i N_i = P$.
+\item Choose $n_i$ samples per subpopulation $N_i$.
+\end{enumerate}
+\end{subsection}
+\end{section}
+
+\begin{section}{Ch 5A: Further Aspects of Stratified Sampling}
+\end{section}
+
+\begin{section}{Ch 6: Ratio Estimators}
+\end{section}
+
+\begin{section}{Ch 7: Regression Estimators}
+\end{section}
+
+\begin{section}{Ch 8: Systematic Sampling}
+\end{section}
+
+\begin{section}{Ch 9: Signle-stage Cluster Sampling:\\Clusters of Equal Sizes}
+\begin{subsection}{Unsorted}
+\begin{enumerate}
+\item Partition population into non-overlapping \emph{clusters}.
+\item Sample clusters.
+\item Choose sampling units from chosen clusters
+\end{enumerate}
+\end{subsection}
+\end{section}
+
+\begin{section}{Ch 9A: Single-stage Cluster Sampling:\\Clusters of Unequal Sizes}
+\end{section}
+
+\begin{section}{Ch 10: Subsampling with Units of Equal Size}
+\end{section}
+
+\begin{section}{Ch 11: Subsampling with Units of Unequal Sizes}
+\end{section}
+
+\begin{section}{Ch 12: Double Sampling}
+\end{section}
+
+\begin{section}{Ch 13: Sources of Error in Surveys}
+\end{section}
+
+\end{document}
