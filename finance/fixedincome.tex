@@ -2,6 +2,7 @@
 \usepackage{amsfonts, amsmath}
 
 \newcommand{\CF}{C\!F}
+\newcommand{\PV}{P\!V}
 
 \title{Fixed Income Notes}
 \author{Miguel Manese}
@@ -24,16 +25,26 @@ The duration and convexity are sensitivity measures related to the first
 and second derivative of $f(\cdot)$ respectively. The first derivative of
 $f(\cdot)$ can be expressed as
 
-\begin{align}
-f'(y) &= \sum_{i=1}^N \frac{(- t_i) \CF_{t_{i}}}{(1 + y)^{t_i + 1}} \notag\\
-      &= - \left[\left(\sum_{i=1} \frac{t_i \CF_{t_{i}}}{(1 + y)^{t_i}} \right)
-        \times \frac{1}{y + i} \times \frac{1}{P}\right] \times P \notag\\
-      &= - \frac{D^*}{1 + y} \times P \notag\\
-      &= - D \times P \notag
-\end{align}
+\begin{align*}
+f'(y) &= \sum_{i=1}^N \frac{(- t_i) \CF_{t_{i}}}{(1 + y)^{t_i + 1}} \\
+      &= - \left[\left(\sum_{i=1}^N \frac{t_i \CF_{t_{i}}}{(1 + y)^{t_i}} \right)
+        \times \frac{1}{1 + y} \times \frac{1}{P}\right] \times P \\
+      &= - \left[\left(\sum_{i=1}^N t_i \PV_{t_{i}} \right)
+        \times \frac{1}{1 + y} \times \frac{1}{P}\right] \times P \\
+      &= - \frac{D^*}{1 + y} \times P \\
+      &= - D \times P 
+\end{align*}
 
-\noindent where $D^{*}$ and $D$ are the \emph{Macaulay duration} and 
-\emph{modified duration} respectively. The second derivative can be expressed
+\noindent where $\PV_t$ is the present value of cashflow at time t (more general
+in case of non-flat yield curve), and $D^{*}$, $D$ are the \emph{Macaulay duration} and 
+\emph{modified duration} respectively. 
+
+\begin{align*}
+D^* &= \frac{1}{P} \sum_{i=1}^N \frac{t_i \CF_{t_{i}}}{(1 + y)^{t_i}}\\
+D &= \frac{1}{P} \frac{1}{1 + y} \sum_{i=1}^N \frac{t_i \CF_{t_{i}}}{(1 + y)^{t_i}}
+\end{align*}
+
+\noindent The second derivative can be expressed
 as
 
 \begin{align}

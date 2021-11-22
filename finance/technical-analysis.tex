@@ -12,8 +12,8 @@
 \begin{subsection}{Classifications}
 
 \begin{enumerate}
-\item Leading indicators -- leads price movements, i.e. they anticipate price movements.
-\item Lagging indicators -- past values greatly influence current value for the indicator
+  \item Leading indicators -- leads price movements, i.e. they anticipate price movements.
+  \item Lagging indicators -- past values greatly influence current value for the indicator
 \end{enumerate}
 
 \begin{enumerate}
@@ -25,51 +25,75 @@
 \end{subsection}
 
 \begin{subsection}{Moving Averages}
-\begin{description}
 
-\item[Simple Moving Average]  
- \[ \text{SMA} = \frac{1}{n} \sum_{t=1}^n P_t \]
+  \begin{subsubsection}{Simple Moving Average}
+    Let $n$ be the moving average \emph{lag}.
 
-\item[Exponential Moving Average] Let $K = \frac{2}{n+1}$
- \begin{align}
- \text{EMA}_t &= K P_t + (1 - K) \text{EMA}_{t-1} \notag\\
-              &= \text{EMA}_{t-1} + K (P_t - \text{EMA}_{t-1}) \notag
- \end{align}
+    \[ \text{SMA} = \frac{1}{n} \sum_{t=1}^n P_t \]
+  \end{subsubsection}
 
-\item[Welles Wilder Moving Average] Like EMA but $K = \frac{1}{n}$
- \[ \text{WWMA}_t = K P_t + (1 - K) \text{WMMA}_{t-1} \]
+  \begin{subsubsection}{Exponential Moving Average}
+    \begin{align}
+      \text{EMA}_t &= K P_t + (1 - K) \text{EMA}_{t-1} \notag\\
+                   &= \text{EMA}_{t-1} + K (P_t - \text{EMA}_{t-1}) \notag
+    \end{align}
+  \end{subsubsection}
 
- (Boundary condition) if lag is $n$, for compute $n-1$ as
- \[ \text{WMMA}_{n-1} = \frac{1}{n-1} \sum_{t=1}^{n-1} P_t \]
- then use the formula above
 
-\item[Double Exponential Moving Average]
- \[ \text{DEMA}_t = 2 \times \text{EMA}(\{P_t\}) - 
-         \text{EMA}(\text{EMA}(\{P_t\})) \]
+  \begin{subsubsection}{Weighted Moving Average}
+    \[ \text{WMA}_t = \frac{1}{n!} \sum_{i=0}^{n-1} P_{t-i} \times i \]
+  \end{subsubsection}
 
-\item[Generalized DEMA] Let $v \in [0, 1]$ (v-factor). $v = 1$ is DEMA
- \[ \text{GDEMA}_t = (1 + v) \times \text{EMA}(\{P_t\}) - 
-         v \times \text{EMA}(\text{EMA}(\{P_t\})) \]
+  \begin{subsubsection}{Welles Wilder Moving Average}
+    Like EMA but $K = \frac{1}{n}$
+    \[ \text{WWMA}_t = K P_t + (1 - K) \text{WMMA}_{t-1} \]
 
-\item[T3] Uses GDEMA with $v$ usually set at 0.7
- \[ \text{T3} = \text{GDEMA}(\text{GDEMA}(\text{GDEMA}(\{P_t\}))) \]
+    (Boundary condition) if lag is $n$, for compute $n-1$ as
+    \[ \text{WMMA}_{n-1} = \frac{1}{n-1} \sum_{t=1}^{n-1} P_t \]
+    then use the formula above
+  \end{subsubsection}
 
-\item [Weighted Moving Average] 
- \[ \text{WMA}_t = \frac{1}{n!} \sum_{i=0}^{n-1} P_{t-i} \times i \]
+  \begin{subsubsection}{Double Exponential Moving Average}
+    \[ \text{DEMA}_t = 2 \times \text{EMA}(\{P_t\}) - 
+       \text{EMA}(\text{EMA}(\{P_t\})) \]
+  \end{subsubsection}
 
-\item[Elastic Volume-Weighted Moving Average] Let $n =$ \textit{volume period}
- \[ \text{EVWMA}_t = \frac{1}{n} [(n - V_t) \text{EVWMA}_{t-1} + V_t P_t] 
-   \text{(???)}\]
 
-\item[Zero-Lag Exponential Moving Average] 
+  \begin{subsubsection}{Generalized DEMA}
+    Let $v \in [0, 1]$ (v-factor). $v = 1$ is DEMA
 
-\item[Volume-weighted Average Price]
+    \[ \text{GDEMA}_t = (1 + v) \times \text{EMA}(\{P_t\}) - 
+            v \times \text{EMA}(\text{EMA}(\{P_t\})) \]
+  \end{subsubsection}
 
-\item[Volume-weighted Moving Average]
+  \begin{subsubsection}{T3}
+    Uses GDEMA with $v$ usually set at 0.7
 
-\item[Variable Moving Average]
+    \[ \text{T3} = \text{GDEMA}(\text{GDEMA}(\text{GDEMA}(\{P_t\}))) \]
+  \end{subsubsection}
 
-\end{description}
+  \begin{subsubsection}{Elastic Volume-Weighted Moving Average}
+    Let $n =$ \textit{volume period}
+
+    \[ \text{EVWMA}_t = \frac{1}{n} [(n - V_t) \text{EVWMA}_{t-1} + V_t P_t] 
+         \text{(???)}\]
+  \end{subsubsection}
+
+  \begin{subsubsection}{Zero-Lag Exponential Moving Average}
+    --
+  \end{subsubsection}
+
+  \begin{subsubsection}{Volume-weighted Average Price}
+    --
+  \end{subsubsection}
+
+  \begin{subsubsection}{Volume-weighted Moving Average}
+  \end{subsubsection}
+
+  \begin{subsubsection}{Variable Moving Average}
+  \end{subsubsection}
+
+
 \end{subsection}
 
 \begin{subsection}{Unsorted Indicators}
